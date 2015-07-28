@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using Jugenschutzprogramm.Shared;
+using Jugenschutzprogramm_Installer.Model;
 
 namespace Jugenschutzprogramm_Installer.ViewManagement.Views
 {
@@ -10,10 +10,10 @@ namespace Jugenschutzprogramm_Installer.ViewManagement.Views
         private int _upperValue = 48;
         private bool _showWarning;
 
-        public Step2(Config config) : base(config)
+        public Step2(Setup setup) : base(setup)
         {
-            Config.TimeSpan.FromTime = 0;
-            Config.TimeSpan.ToTime = 24;
+            setup.Config.TimeSpan.FromTime = 0;
+            setup.Config.TimeSpan.ToTime = 24;
         }
 
         public int LowerValue
@@ -25,8 +25,8 @@ namespace Jugenschutzprogramm_Installer.ViewManagement.Views
                 {
                     _lowerValue = value;
                     var timeSpan = TimeSpan.FromMinutes(value * 30 + 4 * 60);
-                    Config.TimeSpan.FromTime = timeSpan.TotalHours - (timeSpan.TotalHours > 24 ? 24 : 0);
-                    Debug.Print("FromTime: " + Config.TimeSpan.FromTime);
+                    Setup.Config.TimeSpan.FromTime = timeSpan.TotalHours - (timeSpan.TotalHours > 24 ? 24 : 0);
+                    Debug.Print("FromTime: " + Setup.Config.TimeSpan.FromTime);
                     CheckIfEverythingIsAwesome();
                 }
             }
@@ -41,8 +41,8 @@ namespace Jugenschutzprogramm_Installer.ViewManagement.Views
                 {
                     _upperValue = value;
                     var timeSpan = TimeSpan.FromMinutes(value * 30 + 4 * 60);
-                    Config.TimeSpan.ToTime = timeSpan.TotalHours - (timeSpan.TotalHours > 24 ? 24 : 0);
-                    Debug.Print("ToTime: " + Config.TimeSpan.ToTime);
+                    Setup.Config.TimeSpan.ToTime = timeSpan.TotalHours - (timeSpan.TotalHours > 24 ? 24 : 0);
+                    Debug.Print("ToTime: " + Setup.Config.TimeSpan.ToTime);
                     CheckIfEverythingIsAwesome();
                 }
             }
@@ -56,7 +56,7 @@ namespace Jugenschutzprogramm_Installer.ViewManagement.Views
 
         private void CheckIfEverythingIsAwesome()
         {
-            ShowWarning = (UpperValue*30 - LowerValue*30) < Config.GamingTimePerDay.TotalMinutes;
+            ShowWarning = (UpperValue*30 - LowerValue*30) < Setup.Config.GamingTimePerDay.TotalMinutes;
         }
     }
 }

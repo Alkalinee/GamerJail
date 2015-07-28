@@ -4,13 +4,13 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:viewManager="clr-namespace:Jugenschutzprogramm_Installer.ViewManagement"
                       xmlns:viewModels="clr-namespace:Jugenschutzprogramm_Installer.ViewModels"
-                      xmlns:views="clr-namespace:Jugenschutzprogramm_Installer.Views"
-                      xmlns:views2="clr-namespace:Jugenschutzprogramm_Installer.ViewManagement.Views"
                       Title="Jugenschutzprogramm einrichten"
                       Width="390"
                       Height="550"
                       Background="#2d2d30"
+                      Icon="/Resources/Icon.ico"
                       ResizeMode="CanMinimize"
                       ShowCloseButton="False"
                       ShowMaxRestoreButton="False"
@@ -22,6 +22,9 @@
     <Window.DataContext>
         <viewModels:MainViewModel />
     </Window.DataContext>
+    <Window.Resources>
+        <viewManager:ViewManager x:Key="ViewManager" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -66,20 +69,10 @@
         </Grid>
         <controls:TransitioningContentControl Grid.Row="1"
                                               Margin="0,20,0,0"
-                                              Content="{Binding CurrentView}"
+                                              Content="{Binding CurrentView,
+                                                                Converter={StaticResource ViewManager}}"
                                               CustomVisualStatesName="{Binding Animation}"
                                               Transition="Custom">
-            <controls:TransitioningContentControl.Resources>
-                <DataTemplate DataType="{x:Type views2:WelcomeView}">
-                    <views:Page1 DataContext="{Binding}" />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type views2:Step1}">
-                    <views:Page2 DataContext="{Binding}" />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type views2:Step2}">
-                    <views:Page3 DataContext="{Binding}" />
-                </DataTemplate>
-            </controls:TransitioningContentControl.Resources>
             <controls:TransitioningContentControl.CustomVisualStates>
                 <VisualState Name="MoveForwardState">
                     <Storyboard>
@@ -153,6 +146,7 @@
                         Height="25"
                         Command="{Binding GoForwardCommand}"
                         Content="Weiter"
+                        IsEnabled="{Binding CanGoForward}"
                         Style="{StaticResource AwesomeButton}"
                         ToolTip="Nächster Schritt" />
             </StackPanel>

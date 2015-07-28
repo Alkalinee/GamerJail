@@ -1,41 +1,28 @@
 ﻿using System;
-using Jugenschutzprogramm.Shared;
+using Jugenschutzprogramm_Installer.Model;
 
 namespace Jugenschutzprogramm_Installer.ViewManagement
 {
     abstract class View : PropertyChangedBase
     {
-        private RelayCommand _goForwardCommand;
-        private RelayCommand _goBackCommand;
+        private bool _canGoForward = true;
 
-        protected View(Config config)
+        protected View(Setup config)
         {
-            Config = config;
+            Setup = config;
         }
 
-        public event EventHandler GoForward;
-        public event EventHandler GoBack;
+        public event EventHandler GoForwardChanged;
 
-        public Config Config { get; set; }
-        public RelayCommand GoForwardCommand
-        {
-            get
-            {
-                return _goForwardCommand ?? (_goForwardCommand = new RelayCommand(parameter =>
-                {
-                    GoForward?.Invoke(this, EventArgs.Empty);
-                }));
-            }
-        }
+        public Setup Setup { get; set; }
 
-        public RelayCommand GoBackCommand
+        public bool CanGoForward
         {
-            get
+            get { return _canGoForward; }
+            set
             {
-                return _goBackCommand ?? (_goBackCommand = new RelayCommand(parameter =>
-                {
-                    GoBack?.Invoke(this, EventArgs.Empty);
-                }));
+                if (SetProperty(value, ref _canGoForward))
+                    GoForwardChanged?.Invoke(this, EventArgs.Empty);
             }
         }
     }

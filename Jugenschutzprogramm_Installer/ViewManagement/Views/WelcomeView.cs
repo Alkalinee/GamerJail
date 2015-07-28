@@ -1,10 +1,10 @@
-﻿using Jugenschutzprogramm.Shared;
+﻿using Jugenschutzprogramm_Installer.Model;
 
 namespace Jugenschutzprogramm_Installer.ViewManagement.Views
 {
     class WelcomeView : View
     {
-        public WelcomeView(Config config) : base(config)
+        public WelcomeView(Setup setup) : base(setup)
         {
         }
     }

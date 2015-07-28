@@ -32,7 +32,7 @@ namespace Jugenschutzprogramm_Installer
             //    DragMove();
         }
 
-        private void Buttonasd_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Buttonasd_Click(object sender, RoutedEventArgs e)
         {
             
         }

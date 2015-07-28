@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Jugenschutzprogramm.Shared;
+using Jugenschutzprogramm_Installer.Model;
 using Jugenschutzprogramm_Installer.ViewManagement;
 using Jugenschutzprogramm_Installer.ViewManagement.Views;
 
@@ -11,18 +11,28 @@ namespace Jugenschutzprogramm_Installer.ViewModels
         private View _currentView;
         private readonly List<View> _views;
         private bool _canGoBack;
+        private bool _canGoForward;
         private RelayCommand _goBackCommand;
         private RelayCommand _goForwardCommand;
         private string _animation = "MoveForwardState";
-        private Config _config;
+        private Setup _setup;
+        private bool _isFinalStep;
 
         public MainViewModel()
         {
-            _config = new Config();
-            _views = new List<View> {new WelcomeView(_config), new Step1(_config), new Step2(_config)};
+            _setup = new Setup();
+            _views = new List<View>
+            {
+                new WelcomeView(_setup),
+                new Step1(_setup),
+                new Step2(_setup),
+                new Step3(_setup)
+            };
             CurrentView = _views.First();
-        }
 
+            _views.ForEach(view => view.GoForwardChanged += (sender, args) => RefreshCanGoForward());
+            RefreshCanGoForward();
+        }
         public View CurrentView
         {
             get { return _currentView; }
@@ -38,10 +48,22 @@ namespace Jugenschutzprogramm_Installer.ViewModels
             set { SetProperty(value, ref _canGoBack); }
         }
 
+        public bool CanGoForward
+        {
+            get { return _canGoForward; }
+            set { SetProperty(value, ref _canGoForward); }
+        }
+
         public string Animation
         {
             get { return _animation; }
             set { SetProperty(value, ref _animation); }
+        }
+
+        public bool IsFinalStep
+        {
+            get { return _isFinalStep; }
+            set { SetProperty(value, ref _isFinalStep); }
         }
 
         public RelayCommand GoBackCommand
@@ -53,6 +75,7 @@ namespace Jugenschutzprogramm_Installer.ViewModels
                     Animation = "MoveBackwardState";
                     CurrentView = _views[_views.IndexOf(CurrentView) - 1];
                     CanGoBack = _views.IndexOf(CurrentView) > 0;
+                    RefreshCanGoForward();
                 }));
             }
         }
@@ -66,8 +89,15 @@ namespace Jugenschutzprogramm_Installer.ViewModels
                     Animation = "MoveForwardState";
                     CurrentView = _views[_views.IndexOf(CurrentView) + 1];
                     CanGoBack = true;
+                    RefreshCanGoForward();
                 }));
             }
+        }
+
+        private void RefreshCanGoForward()
+        {
+            CanGoForward = CurrentView.CanGoForward;
+            IsFinalStep = _views.IndexOf(CurrentView) == _views.Count - 1;
         }
     }
 }

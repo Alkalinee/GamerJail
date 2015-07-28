@@ -14,7 +14,7 @@
     <UserControl.Resources>
         <converter:TimeSpanToolTipConverter x:Key="TimeSpanToolTipConverter" />
     </UserControl.Resources>
-    <Grid Margin="15">
+    <Grid Margin="20">
         <StackPanel Orientation="Vertical">
             <TextBlock Foreground="White"
                        Text="Nun können Sie festlegen, zu welcher Tageszeit gespielt werden darf:"

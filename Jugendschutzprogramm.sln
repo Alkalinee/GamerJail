@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jugenschutzprogramm_Install
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jugenschutzprogramm.Shared", "Jugenschutzprogramm.Shared\Jugenschutzprogramm.Shared.csproj", "{DFDB2628-E26E-47B9-9EB7-8D813A7AC861}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MahApps.Metro.NET45", "..\..\..\..\Downloads\MahApps.Metro-master\MahApps.Metro-master\MahApps.Metro\MahApps.Metro.NET45.csproj", "{942D11C4-29F5-46C4-8C14-4B976D56C637}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MahApps.Metro.NET45", "MahApps.Metro\MahApps.Metro.NET45.csproj", "{942D11C4-29F5-46C4-8C14-4B976D56C637}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

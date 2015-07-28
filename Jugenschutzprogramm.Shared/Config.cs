@@ -10,7 +10,7 @@ namespace Jugenschutzprogramm.Shared
         private DayTimeSpan _timeSpan;
         private bool _useTcpConnection;
         private int _tcpPort;
-        private ProtectionLevel _protectionLevel;
+        private ProtectionLevel _protectionLevel = ProtectionLevel.Default;
 
         public Config()
         {
