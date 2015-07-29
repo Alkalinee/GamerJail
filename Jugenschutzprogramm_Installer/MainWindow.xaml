@@ -145,10 +145,22 @@
                 <Button Width="80"
                         Height="25"
                         Command="{Binding GoForwardCommand}"
-                        Content="Weiter"
-                        IsEnabled="{Binding CanGoForward}"
-                        Style="{StaticResource AwesomeButton}"
-                        ToolTip="Nächster Schritt" />
+                        IsEnabled="{Binding CanGoForward}">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource AwesomeButton}" TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsFinalStep}" Value="true">
+                                    <Setter Property="Content" Value="Installieren" />
+                                    <Setter Property="ToolTip" Value="Programm installieren" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsFinalStep}" Value="false">
+                                    <Setter Property="Content" Value="Weiter" />
+                                    <Setter Property="ToolTip" Value="Nächster Schritt" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>

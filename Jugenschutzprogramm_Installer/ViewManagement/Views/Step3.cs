@@ -3,7 +3,6 @@ using System.IO;
 using System.Security;
 using System.Windows;
 using Jugenschutzprogramm_Installer.Model;
-using Jugenschutzprogramm_Installer.Utilities;
 using Ookii.Dialogs.Wpf;
 
 namespace Jugenschutzprogramm_Installer.ViewManagement.Views

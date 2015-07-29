@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace Jugenschutzprogramm_Installer.Utilities
+namespace Jugenschutzprogramm.Shared.Utilities
 {
     static class SecureStringExtensions
     {
@@ -57,6 +57,29 @@ namespace Jugenschutzprogramm_Installer.Utilities
                     Marshal.ZeroFreeBSTR(bstr2);
                 }
             }
+        }
+
+        public static string SecureStringToString(this SecureString s)
+        {
+            IntPtr valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(s);
+                return Marshal.PtrToStringUni(valuePtr);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
+        }
+
+        public static SecureString ToSecureString(this string s)
+        {
+            var secure = new SecureString();
+            foreach (char c in s)
+                secure.AppendChar(c);
+
+            return secure;
         }
     }
 }

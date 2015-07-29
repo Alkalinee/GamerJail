@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security;
+using Jugenschutzprogramm.Shared.Utilities;
 
 namespace Jugenschutzprogramm.Shared
 {
@@ -15,6 +18,7 @@ namespace Jugenschutzprogramm.Shared
         public Config()
         {
             TimeSpan = new DayTimeSpan();
+            ProcessWhitelist = new List<string>();
         }
 
         public Mode Mode
@@ -64,6 +68,19 @@ namespace Jugenschutzprogramm.Shared
             get { return _tcpPort; }
             set { SetProperty(value, ref _tcpPort); }
         }
+
+        public SecureString Password { get; set; }
+
+        public string PasswordSerialize
+        {
+            get { return Password.SecureStringToString(); }
+            set
+            {
+                Password = value.ToSecureString();
+            }
+        }
+
+        public List<string> ProcessWhitelist { get; set; }
     }
 
     public enum Actions
