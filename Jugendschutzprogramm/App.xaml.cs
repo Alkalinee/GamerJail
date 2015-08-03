@@ -1,8 +1,8 @@
 ﻿using System;
-using System.IO;
-using System.Web.Script.Serialization;
 using System.Windows;
-using Jugenschutzprogramm.Shared;
+using System.Windows.Media.Imaging;
+using Hardcodet.Wpf.TaskbarNotification;
+using Jugendschutzprogramm.Logic;
 
 namespace Jugendschutzprogramm
 {
@@ -11,13 +11,36 @@ namespace Jugendschutzprogramm
     /// </summary>
     public partial class App
     {
+        private Window _window;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            var configFile = new FileInfo("");
-            var config = new JavaScriptSerializer().Deserialize<Config>(File.ReadAllText(configFile.FullName));
-            GC.Collect(); //To clear the string
-            new Service(config);
+            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            var tbi = new TaskbarIcon
+            {
+                IconSource =
+                    new BitmapImage(new Uri(
+                        @"pack://application:,,,/Jugendschutzprogramm;component/Resources/Icon.ico", UriKind.Absolute)),
+                ToolTipText = "Jugenschutzprogramm"
+            };
+            tbi.TrayLeftMouseDown += Tbi_TrayLeftMouseDown;
+
+            ServiceManager.Current.Load();
+        }
+
+        private void Tbi_TrayLeftMouseDown(object sender, RoutedEventArgs e)
+        {
+            if (_window != null)
+            {
+                _window.Activate();
+            }
+            else
+            {
+                _window = new MainWindow();
+                _window.Closed += (s, o) => _window = null;
+                _window.Show();
+            }
         }
     }
 }

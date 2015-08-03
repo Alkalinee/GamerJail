@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security;
 using System.Windows;
+using Jugenschutzprogramm.Shared.Utilities;
 using Jugenschutzprogramm_Installer.Model;
 using Ookii.Dialogs.Wpf;
 
@@ -83,7 +84,7 @@ namespace Jugenschutzprogramm_Installer.ViewManagement.Views
         {
             CanGoForward = CheckStrings(_password1, _password2);
             if (CanGoForward)
-                Setup.Password = _password1;
+                Setup.Config.Password = _password1;
         }
 
         private bool CheckStrings(SecureString s1, SecureString s2)

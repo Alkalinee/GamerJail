@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security;
+using System.Web.Script.Serialization;
+using System.Xml;
 using Jugenschutzprogramm.Shared.Utilities;
 
 namespace Jugenschutzprogramm.Shared
@@ -27,10 +29,17 @@ namespace Jugenschutzprogramm.Shared
             set { SetProperty(value, ref _mode); }
         }
 
+        [ScriptIgnore]
         public TimeSpan GamingTimePerDay
         {
             get { return _gamingTimePerDay; }
             set { SetProperty(value, ref _gamingTimePerDay); }
+        }
+
+        public string GamingTimePerDaySerialize
+        {
+            get { return XmlConvert.ToString(GamingTimePerDay); }
+            set { GamingTimePerDay = XmlConvert.ToTimeSpan(value); }
         }
 
         public ProtectionLevel ProtectionLevel
@@ -57,6 +66,7 @@ namespace Jugenschutzprogramm.Shared
             private set { SetProperty(value, ref _timeSpan); }
         }
 
+
         public bool UseTcpConnection
         {
             get { return _useTcpConnection; }
@@ -69,6 +79,7 @@ namespace Jugenschutzprogramm.Shared
             set { SetProperty(value, ref _tcpPort); }
         }
 
+        [ScriptIgnore]
         public SecureString Password { get; set; }
 
         public string PasswordSerialize

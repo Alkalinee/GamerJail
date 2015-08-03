@@ -5,7 +5,7 @@ using System.Security;
 
 namespace Jugenschutzprogramm.Shared.Utilities
 {
-    static class SecureStringExtensions
+    public static class SecureStringExtensions
     {
         public static bool SecureStringEqual(this SecureString s1, SecureString s2)
         {

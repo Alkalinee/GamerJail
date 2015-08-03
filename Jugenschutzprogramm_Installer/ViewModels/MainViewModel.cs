@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using Jugenschutzprogramm_Installer.Model;
 using Jugenschutzprogramm_Installer.ViewManagement;
 using Jugenschutzprogramm_Installer.ViewManagement.Views;
@@ -87,6 +88,13 @@ namespace Jugenschutzprogramm_Installer.ViewModels
                 return _goForwardCommand ?? (_goForwardCommand = new RelayCommand(parameter =>
                 {
                     Animation = "MoveForwardState";
+                    if (IsFinalStep)
+                    {
+                        _setup.Install();
+                        MessageBox.Show("Installiert!");
+                        Application.Current.Shutdown();
+                        return;
+                    }
                     CurrentView = _views[_views.IndexOf(CurrentView) + 1];
                     CanGoBack = true;
                     RefreshCanGoForward();
