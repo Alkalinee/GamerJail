@@ -18,7 +18,7 @@ namespace Jugendschutzprogramm.Logic
                 return true;
 
             var cname = GetClassName(process.MainWindowHandle);
-            if (cname == "Progman" || cname == "WorkerW")
+            if (cname == "Progman" || cname == "WorkerW") //This are Windows processes
                 return false;
 
             if (cname == "LaunchUnrealUWindowsClient")

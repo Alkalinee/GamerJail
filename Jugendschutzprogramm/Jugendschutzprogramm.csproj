@@ -68,6 +68,7 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.97.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,12 +91,15 @@
     <Compile Include="Data\DatabaseManager.cs" />
     <Compile Include="Data\PlayTime.cs" />
     <Compile Include="Data\Program.cs" />
+    <Compile Include="Logic\ActionManager.cs" />
     <Compile Include="Logic\GameChecker.cs" />
     <Compile Include="Native\POINT.cs" />
     <Compile Include="Native\RECT.cs" />
     <Compile Include="Native\UnsafeNativeMethods.cs" />
     <Compile Include="Native\WINDOWPLACEMENT.cs" />
+    <Compile Include="Utilities\DateTimeExtensions.cs" />
     <Compile Include="Utilities\DateTimeHelper.cs" />
+    <Compile Include="Utilities\ImageExtensions.cs" />
     <Compile Include="Utilities\ProcessExtensions.cs" />
     <Compile Include="PropertyChangedBase.cs" />
     <Compile Include="Logic\Service.cs" />
@@ -143,6 +147,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Jugendschutzprogramm.Resources\Jugendschutzprogramm.Resources.csproj">
+      <Project>{3d7230a5-9d63-4276-bf24-0a8859e90631}</Project>
+      <Name>Jugendschutzprogramm.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Jugenschutzprogramm.Shared\Jugenschutzprogramm.Shared.csproj">
       <Project>{dfdb2628-e26e-47b9-9eb7-8d813a7ac861}</Project>
       <Name>Jugenschutzprogramm.Shared</Name>

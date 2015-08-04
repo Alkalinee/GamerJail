@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Text;
+using System.Windows.Media;
 using Jugendschutzprogramm.Native;
 
 namespace Jugendschutzprogramm.Utilities
@@ -27,6 +29,11 @@ namespace Jugendschutzprogramm.Utilities
                 UnsafeNativeMethods.CloseHandle(hprocess);
             }
             return string.Empty;
+        }
+
+        public static ImageSource GetFileImage(this string path)
+        {
+           return Icon.ExtractAssociatedIcon(path).ToImageSource();
         }
     }
 }

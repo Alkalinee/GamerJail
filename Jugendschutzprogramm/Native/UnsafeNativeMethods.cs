@@ -45,6 +45,9 @@ namespace Jugendschutzprogramm.Native
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         internal static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+
+        [DllImport("gdi32.dll", SetLastError = true)]
+        internal static extern bool DeleteObject(IntPtr hObject);
     }
 
 // ReSharper disable InconsistentNaming

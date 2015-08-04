@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jugenschutzprogramm.Shared"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MahApps.Metro.NET45", "MahApps.Metro\MahApps.Metro.NET45.csproj", "{942D11C4-29F5-46C4-8C14-4B976D56C637}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jugendschutzprogramm.Resources", "Jugendschutzprogramm.Resources\Jugendschutzprogramm.Resources.csproj", "{3D7230A5-9D63-4276-BF24-0A8859E90631}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{942D11C4-29F5-46C4-8C14-4B976D56C637}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{942D11C4-29F5-46C4-8C14-4B976D56C637}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{942D11C4-29F5-46C4-8C14-4B976D56C637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D7230A5-9D63-4276-BF24-0A8859E90631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D7230A5-9D63-4276-BF24-0A8859E90631}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D7230A5-9D63-4276-BF24-0A8859E90631}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D7230A5-9D63-4276-BF24-0A8859E90631}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

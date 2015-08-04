@@ -20,7 +20,7 @@ namespace Jugendschutzprogramm.ViewModels
 
         private void _dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            ServiceManager.RefreshTimePlayedToday();
+            ServiceManager.ActionManager.CheckTime();
         }
 
         public ServiceManager ServiceManager { get; }

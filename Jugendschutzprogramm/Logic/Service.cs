@@ -8,7 +8,7 @@ using Jugendschutzprogramm.Utilities;
 
 namespace Jugendschutzprogramm.Logic
 {
-    class Service
+    class Service : PropertyChangedBase
     {
         private readonly ServiceManager _manager;
         // ReSharper disable InconsistentNaming
@@ -21,6 +21,8 @@ namespace Jugendschutzprogramm.Logic
         private bool _isInGame;
         private CancellationTokenSource _cancellationTokenSource;
         private DateTime _timeGamingStarted;
+        private Process _currentProcess;
+        private Program _currentProgram;
 
         public Service(ServiceManager manager)
         {
@@ -28,7 +30,16 @@ namespace Jugendschutzprogramm.Logic
             _delegate = WinEventProc;
         }
 
+        public event EventHandler Started;
+        public event EventHandler Stopped;
+
         public bool IsEnabled { get; set; }
+
+        public Program CurrentProgram
+        {
+            get { return _currentProgram; }
+            set { SetProperty(value, ref _currentProgram); }
+        }
 
         public TimeSpan TimePlayed
         {
@@ -58,6 +69,11 @@ namespace Jugendschutzprogramm.Logic
 
             UnsafeNativeMethods.UnhookWinEvent(_hook);
             IsEnabled = false;
+        }
+
+        public void CloseCurrentProcess()
+        {
+            _currentProcess?.Kill();
         }
 
         private void WinEventProc(IntPtr hWinEventHook, uint eventType, IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
@@ -117,12 +133,18 @@ namespace Jugendschutzprogramm.Logic
             if (_isInGame)
                 return;
 
+            CurrentProgram = program;
             _isInGame = true;
+            _currentProcess = process;
             var playTime = _manager.DatabaseManager.StartPlayTime(program);
             _timeGamingStarted = DateTime.Now;
+            Started?.Invoke(this, EventArgs.Empty);
             await Task.Run(() => process.WaitForExit());
+            _currentProcess = null;
             _manager.DatabaseManager.PlayTimeFinished(playTime, DateTime.Now);
             _isInGame = false;
+            Stopped?.Invoke(this, EventArgs.Empty);
+            CurrentProgram = null;
         }
     }
 }
