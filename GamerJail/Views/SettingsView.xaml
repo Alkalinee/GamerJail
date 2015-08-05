@@ -1,0 +1,60 @@
+﻿<Window x:Class="GamerJail.Views.SettingsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:config="clr-namespace:GamerJail.Shared;assembly=GamerJail.Shared"
+        xmlns:converter="clr-namespace:GamerJail.Shared.Converter;assembly=GamerJail.Shared"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:GamerJail.ViewModels"
+        Title="Einstellungen"
+        Width="600"
+        Height="330"
+        d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
+        mc:Ignorable="d">
+    <Window.Resources>
+        <converter:EnumToBooleanConverter x:Key="EnumBooleanConverter" />
+    </Window.Resources>
+    <ScrollViewer>
+        <StackPanel Margin="10" Orientation="Vertical">
+            <TextBlock FontSize="14" Text="Kontingentverteilung" />
+            <RadioButton Margin="0,10,0,0"
+                         Content="Jeden Tag"
+                         IsChecked="{Binding ServiceManager.Config.Mode,
+                                             Converter={StaticResource EnumBooleanConverter},
+                                             ConverterParameter={x:Static config:Mode.PerDay}}"
+                         ToolTip="Jeden Tag erhält der Benutzer eine festgelegte Anzahl an Stunden,&#x0a;die verbraucht werden können. Über gebliebenes Kontingent verfällt." />
+            <RadioButton Margin="0,5,0,0"
+                         Content="Jede Woche"
+                         IsChecked="{Binding ServiceManager.Config.Mode,
+                                             Converter={StaticResource EnumBooleanConverter},
+                                             ConverterParameter={x:Static config:Mode.PerWeek}}"
+                         ToolTip="Jede Woche erhält der Benutzer eine festgelegte Anzahl an Stunden,&#x0a;sodass diese selbstständig eingeteilgt werden können." />
+            <RadioButton Margin="0,5,0,0"
+                         Content="Jeden Tag, Kontingent kann gespart werden"
+                         IsChecked="{Binding ServiceManager.Config.Mode,
+                                             Converter={StaticResource EnumBooleanConverter},
+                                             ConverterParameter={x:Static config:Mode.PerDayWithSave}}"
+                         ToolTip="Jeden Tag erhält der Benutzer eine festgelegte Anzahl an Stunden,&#x0a;die verbraucht werden können. Wenn weniger verbraucht wird, kann dieses&#x0a;am Folgetag verwendet werden. Am Wochenende wird alles zurückgesetzt." />
+            <TextBlock Margin="0,15,0,0"
+                       FontSize="14"
+                       Text="Kontingent" />
+            <Slider x:Name="TimeSlider"
+                    Margin="0,10,0,0"
+                    IsSnapToTickEnabled="True"
+                    Maximum="12"
+                    SmallChange="0.5"
+                    TickFrequency="0.5"
+                    TickPlacement="BottomRight"
+                    Value="{Binding Setup.Config.GamingTimePerDay,
+                                    Converter={StaticResource DoubleToTimeSpanConverter}}" />
+            <TextBlock Margin="0,5,0,0" Foreground="{StaticResource BlackBrush}">
+                <Run Foreground="#0899fb" Text="{Binding ElementName=TimeSlider, Path=Value}" />
+                <Run Foreground="#0899fb" Text="Stunden" />
+                <Run Text="täglich," />
+                <Run Foreground="#0899fb" Text="{Binding ElementName=TimeSlider, Path=Value, Converter={StaticResource MultiplyConverter}, ConverterParameter=7}" />
+                <Run Foreground="#0899fb" Text="Stunden" />
+                <Run Text="wöchentlich" />
+            </TextBlock>
+        </StackPanel>
+    </ScrollViewer>
+</Window>
