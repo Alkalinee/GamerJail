@@ -20,7 +20,7 @@ namespace GamerJail.Shared
         public Config()
         {
             TimeSpan = new DayTimeSpan();
-            ProcessWhitelist = new List<string>();
+            //ProcessWhitelist = new List<string>();
         }
 
         public Mode Mode
@@ -63,7 +63,7 @@ namespace GamerJail.Shared
         public DayTimeSpan TimeSpan
         {
             get { return _timeSpan; }
-            private set { SetProperty(value, ref _timeSpan); }
+            set { SetProperty(value, ref _timeSpan); }
         }
 
 
@@ -88,6 +88,7 @@ namespace GamerJail.Shared
             set
             {
                 Password = value.ToSecureString();
+                value = null;
             }
         }
 

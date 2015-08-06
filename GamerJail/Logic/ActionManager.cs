@@ -6,7 +6,7 @@ using GamerJail.Shared;
 
 namespace GamerJail.Logic
 {
-    class ActionManager : PropertyChangedBase
+    public class ActionManager : PropertyChangedBase
     {
         private readonly ServiceManager _serviceManager;
         private bool _isEnabled;

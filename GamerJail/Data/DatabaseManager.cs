@@ -8,7 +8,7 @@ using Microsoft.Win32;
 
 namespace GamerJail.Data
 {
-    class DatabaseManager
+    public class DatabaseManager
     {
         public static string Password;
 

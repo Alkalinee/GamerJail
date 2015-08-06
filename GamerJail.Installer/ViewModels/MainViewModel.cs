@@ -4,6 +4,7 @@ using System.Windows;
 using GamerJail.Installer.Model;
 using GamerJail.Installer.ViewManagement;
 using GamerJail.Installer.ViewManagement.Views;
+using GamerJail.Shared;
 
 namespace GamerJail.Installer.ViewModels
 {
@@ -16,7 +17,7 @@ namespace GamerJail.Installer.ViewModels
         private RelayCommand _goBackCommand;
         private RelayCommand _goForwardCommand;
         private string _animation = "MoveForwardState";
-        private Setup _setup;
+        private readonly Setup _setup;
         private bool _isFinalStep;
 
         public MainViewModel()

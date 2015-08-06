@@ -48,6 +48,20 @@ namespace GamerJail.Native
 
         [DllImport("gdi32.dll", SetLastError = true)]
         internal static extern bool DeleteObject(IntPtr hObject);
+
+        [DllImport("user32.dll")]
+        internal static extern int GetWindowLong(IntPtr hwnd, int index);
+
+        [DllImport("user32.dll")]
+        internal static extern int SetWindowLong(IntPtr hwnd, int index, int newStyle);
+
+        [DllImport("user32.dll")]
+        internal static extern bool SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, int x,
+            int y, int width, int height, uint flags);
+
+        [DllImport("user32.dll")]
+        internal static extern IntPtr SendMessage(IntPtr hwnd, uint msg, IntPtr wParam, IntPtr
+            lParam);
     }
 
 // ReSharper disable InconsistentNaming

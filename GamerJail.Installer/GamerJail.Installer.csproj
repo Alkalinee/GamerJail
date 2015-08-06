@@ -67,13 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Converter\DoubleToTimeSpanConverter.cs" />
-    <Compile Include="Converter\EnumToBooleanConverter.cs" />
-    <Compile Include="Converter\MultiplyConverter.cs" />
-    <Compile Include="Converter\TimeSpanToolTipConverter.cs" />
     <Compile Include="Model\Setup.cs" />
-    <Compile Include="PropertyChangedBase.cs" />
-    <Compile Include="RelayCommand.cs" />
     <Compile Include="Resources\Class1.cs" />
     <Compile Include="ViewManagement\View.cs" />
     <Compile Include="ViewManagement\ViewManager.cs" />

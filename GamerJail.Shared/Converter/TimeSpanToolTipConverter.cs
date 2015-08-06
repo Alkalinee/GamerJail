@@ -2,13 +2,13 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace GamerJail.Installer.Converter
+namespace GamerJail.Shared.Converter
 {
-    class TimeSpanToolTipConverter : IValueConverter
+    public class TimeSpanToolTipConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return TimeSpan.FromHours((double) value / 2 + 4).ToString("hh\\:mm") + " Uhr";
+            return TimeSpan.FromHours((double)value / 2 + 4).ToString("hh\\:mm") + " Uhr";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

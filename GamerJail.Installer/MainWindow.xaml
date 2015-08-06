@@ -34,7 +34,7 @@
         <Grid>
             <TextBlock Margin="10"
                        VerticalAlignment="Center"
-                       FontSize="18"
+                       FontSize="24"
                        Foreground="White"
                        Text="GamerJail" />
             <StackPanel Margin="10"

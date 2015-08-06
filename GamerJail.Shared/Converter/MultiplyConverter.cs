@@ -2,18 +2,18 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace GamerJail.Installer.Converter
+namespace GamerJail.Shared.Converter
 {
-    class DoubleToTimeSpanConverter : IValueConverter
+    public class MultiplyConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((TimeSpan) value).TotalHours;
+            return ((double)value) * double.Parse(parameter.ToString(), CultureInfo.InvariantCulture);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return TimeSpan.FromMinutes((double) value * 60);
+            throw new NotImplementedException();
         }
     }
 }

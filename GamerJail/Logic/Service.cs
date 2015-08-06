@@ -4,11 +4,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using GamerJail.Data;
 using GamerJail.Native;
+using GamerJail.Shared;
 using GamerJail.Utilities;
 
 namespace GamerJail.Logic
 {
-    class Service : PropertyChangedBase
+    public class Service : PropertyChangedBase
     {
         private readonly ServiceManager _manager;
         // ReSharper disable InconsistentNaming

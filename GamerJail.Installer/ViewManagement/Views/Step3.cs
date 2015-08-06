@@ -3,6 +3,7 @@ using System.IO;
 using System.Security;
 using System.Windows;
 using GamerJail.Installer.Model;
+using GamerJail.Shared;
 using GamerJail.Shared.Utilities;
 using Ookii.Dialogs.Wpf;
 

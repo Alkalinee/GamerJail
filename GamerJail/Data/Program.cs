@@ -4,7 +4,7 @@ using GamerJail.Utilities;
 
 namespace GamerJail.Data
 {
-    class Program
+    public class Program
     {
         private ImageSource _icon;
 

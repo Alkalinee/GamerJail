@@ -1,5 +1,6 @@
 ﻿using System;
 using GamerJail.Installer.Model;
+using GamerJail.Shared;
 
 namespace GamerJail.Installer.ViewManagement
 {

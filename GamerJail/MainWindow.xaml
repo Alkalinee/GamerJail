@@ -19,7 +19,23 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="10"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button Margin="0,0,10,0"
+                    Content="Einstellungen"
+                    Style="{StaticResource MetroButton}" />
+            <Button Command="{Binding OpenConfigurationCommand}"
+                    Content="Konfiguration"
+                    Style="{StaticResource MetroButton}" />
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
             <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
                 <StackPanel.Style>
                     <Style TargetType="StackPanel">

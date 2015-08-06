@@ -13,7 +13,7 @@ using GamerJail.Shared;
 
 namespace GamerJail.Logic
 {
-    class ServiceManager : PropertyChangedBase
+    public class ServiceManager : PropertyChangedBase
     {
         private TaskbarIcon _taskbarIcon;
         private TimeSpan _timePlayedToday;
@@ -30,6 +30,7 @@ namespace GamerJail.Logic
 
             var configFile = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GamerJail", "config.xml"));
             Config = new JavaScriptSerializer().Deserialize<Config>(File.ReadAllText(configFile.FullName));
+
             GC.Collect(); //To clear the string
 
             DatabaseManager.Password = Encoding.BigEndianUnicode.GetString(MD5.Create("zt+6Mr5b}j?Xe^chJ{Y8+vDn+?6jCqr37]%SRE~__@\" * "));

@@ -2,7 +2,7 @@
 
 namespace GamerJail.Data
 {
-    class PlayTime
+    public class PlayTime
     {
         public DateTime Timestamp { get; set; }
         public TimeSpan Duration { get; set; }
