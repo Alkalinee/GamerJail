@@ -60,14 +60,14 @@ namespace MahApps.Metro.Controls
         
         public FlipView()
         {
-            this.Unloaded += FlipView_Unloaded;
-            this.Loaded += FlipView_Loaded;
-            this.MouseLeftButtonDown += FlipView_MouseLeftButtonDown;
+            Unloaded += FlipView_Unloaded;
+            Loaded += FlipView_Loaded;
+            MouseLeftButtonDown += FlipView_MouseLeftButtonDown;
         }
 
         void FlipView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.Focus();
+            Focus();
         }
 
         protected override bool IsItemItsOwnContainerOverride(object item)
@@ -142,8 +142,8 @@ namespace MahApps.Metro.Controls
             upButton.Click += upButton_Click;
             downButton.Click += downButton_Click;
 
-            this.SelectionChanged += FlipView_SelectionChanged;
-            this.PreviewKeyDown += FlipView_PreviewKeyDown;
+            SelectionChanged += FlipView_SelectionChanged;
+            PreviewKeyDown += FlipView_PreviewKeyDown;
 
             SelectedIndex = 0;
 
@@ -156,11 +156,11 @@ namespace MahApps.Metro.Controls
 
         void FlipView_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.Unloaded -= FlipView_Unloaded;
-            this.MouseLeftButtonDown -= FlipView_MouseLeftButtonDown;
-            this.SelectionChanged -= FlipView_SelectionChanged;
+            Unloaded -= FlipView_Unloaded;
+            MouseLeftButtonDown -= FlipView_MouseLeftButtonDown;
+            SelectionChanged -= FlipView_SelectionChanged;
 
-            this.PreviewKeyDown -= FlipView_PreviewKeyDown;
+            PreviewKeyDown -= FlipView_PreviewKeyDown;
             backButton.Click -= backButton_Click;
             forwardButton.Click -= forwardButton_Click;
             upButton.Click -= upButton_Click;
@@ -187,18 +187,18 @@ namespace MahApps.Metro.Controls
             }
 
             if (e.Handled)
-                this.Focus();
+                Focus();
         }
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
 
-            showBannerStoryboard = ((Storyboard)this.Template.Resources["ShowBannerStoryboard"]).Clone();
-            hideBannerStoryboard = ((Storyboard)this.Template.Resources["HideBannerStoryboard"]).Clone();
+            showBannerStoryboard = ((Storyboard)Template.Resources["ShowBannerStoryboard"]).Clone();
+            hideBannerStoryboard = ((Storyboard)Template.Resources["HideBannerStoryboard"]).Clone();
 
-            showControlStoryboard = ((Storyboard)this.Template.Resources["ShowControlStoryboard"]).Clone();
-            hideControlStoryboard = ((Storyboard)this.Template.Resources["HideControlStoryboard"]).Clone();
+            showControlStoryboard = ((Storyboard)Template.Resources["ShowControlStoryboard"]).Clone();
+            hideControlStoryboard = ((Storyboard)Template.Resources["HideControlStoryboard"]).Clone();
 
             presenter = GetTemplateChild(PART_Presenter) as TransitioningContentControl;
             backButton = GetTemplateChild(PART_BackButton) as Button;
@@ -301,7 +301,7 @@ namespace MahApps.Metro.Controls
 
         private void HideBanner()
         {
-            if (this.ActualHeight > 0.0)
+            if (ActualHeight > 0.0)
             {
                 bannerLabel.BeginStoryboard(hideControlStoryboard);
                 bannerGrid.BeginStoryboard(hideBannerStoryboard);

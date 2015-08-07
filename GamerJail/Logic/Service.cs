@@ -112,7 +112,7 @@ namespace GamerJail.Logic
 
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(20), _cancellationTokenSource.Token);
+                await Task.Delay(TimeSpan.FromSeconds(5), _cancellationTokenSource.Token);
             }
             catch (TaskCanceledException)
             {

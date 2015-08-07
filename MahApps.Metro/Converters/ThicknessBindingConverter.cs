@@ -19,10 +19,10 @@ namespace MahApps.Metro.Converters
                 // yes, we can override it with the parameter value
                 if (parameter is IgnoreThicknessSideType)
                 {
-                    this.IgnoreThicknessSide = (IgnoreThicknessSideType)parameter;
+                    IgnoreThicknessSide = (IgnoreThicknessSideType)parameter;
                 }
                 var orgThickness = (Thickness)value;
-                switch (this.IgnoreThicknessSide)
+                switch (IgnoreThicknessSide)
                 {
                     case IgnoreThicknessSideType.Left:
                         return new Thickness(0, orgThickness.Top, orgThickness.Right, orgThickness.Bottom);

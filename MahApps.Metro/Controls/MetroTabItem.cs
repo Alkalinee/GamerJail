@@ -13,8 +13,8 @@ namespace MahApps.Metro.Controls
         public MetroTabItem()
         {
             DefaultStyleKey = typeof(MetroTabItem);
-            this.Unloaded += MetroTabItem_Unloaded;
-            this.Loaded += MetroTabItem_Loaded;
+            Unloaded += MetroTabItem_Unloaded;
+            Loaded += MetroTabItem_Loaded;
         }
 
         void MetroTabItem_Loaded(object sender, RoutedEventArgs e)
@@ -29,7 +29,7 @@ namespace MahApps.Metro.Controls
 
         void MetroTabItem_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.Unloaded -= MetroTabItem_Unloaded;
+            Unloaded -= MetroTabItem_Unloaded;
             if (closeButton != null)
             {
                 closeButton.Click -= closeButton_Click;
@@ -112,7 +112,7 @@ namespace MahApps.Metro.Controls
             // run the command handler for the TabControl
             var itemFromContainer = owningTabControl.ItemContainerGenerator.ItemFromContainer(this);
 
-            var data = itemFromContainer == DependencyProperty.UnsetValue ? this.Content : itemFromContainer;
+            var data = itemFromContainer == DependencyProperty.UnsetValue ? Content : itemFromContainer;
             owningTabControl.InternalCloseTabCommand.Execute(new Tuple<object, MetroTabItem>(data, this));
         }
 
@@ -157,7 +157,7 @@ namespace MahApps.Metro.Controls
 
         protected override void OnMouseLeave(MouseEventArgs e)
         {
-            if (!this.IsSelected && closeButton != null && CloseButtonEnabled)
+            if (!IsSelected && closeButton != null && CloseButtonEnabled)
                 closeButton.Visibility = Visibility.Hidden;
 
             base.OnMouseLeave(e);

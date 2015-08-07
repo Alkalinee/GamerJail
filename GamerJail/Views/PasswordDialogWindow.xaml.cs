@@ -1,4 +1,5 @@
-﻿using GamerJail.Utilities;
+﻿using System;
+using GamerJail.Utilities;
 using GamerJail.ViewModels;
 
 namespace GamerJail.Views
@@ -15,7 +16,7 @@ namespace GamerJail.Views
             SourceInitialized += PasswordDialogWindow_SourceInitialized;
         }
 
-        private void PasswordDialogWindow_SourceInitialized(object sender, System.EventArgs e)
+        private void PasswordDialogWindow_SourceInitialized(object sender, EventArgs e)
         {
             IconHelper.RemoveIcon(this);
         }

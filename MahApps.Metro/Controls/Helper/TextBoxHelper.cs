@@ -219,7 +219,7 @@ namespace MahApps.Metro.Controls
                     txtBox.GotFocus += TextBoxGotFocus;
 
                     txtBox.Dispatcher.BeginInvoke((Action)(() => 
-                        TextChanged(txtBox, new TextChangedEventArgs(TextBox.TextChangedEvent, UndoAction.None))));
+                        TextChanged(txtBox, new TextChangedEventArgs(TextBoxBase.TextChangedEvent, UndoAction.None))));
                 }
                 else
                 {

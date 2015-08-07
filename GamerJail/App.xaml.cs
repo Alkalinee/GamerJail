@@ -4,8 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using GamerJail.Logic;
-using Hardcodet.Wpf.TaskbarNotification;
 using GamerJail.Shared;
+using Hardcodet.Wpf.TaskbarNotification;
 
 namespace GamerJail
 {
@@ -31,7 +31,7 @@ namespace GamerJail
                 ToolTipText = "GamerJail"
             };
             Icon.TrayLeftMouseDown += Tbi_TrayLeftMouseDown;
-            
+
             ServiceManager.Current.Load(Icon);
 
             if (ServiceManager.Current.Config.ProtectionLevel == ProtectionLevel.Nothing)

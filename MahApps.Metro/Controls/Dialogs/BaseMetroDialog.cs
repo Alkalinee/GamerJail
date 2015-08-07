@@ -20,7 +20,7 @@ namespace MahApps.Metro.Controls.Dialogs
         public static readonly DependencyProperty DialogTopProperty = DependencyProperty.Register("DialogTop", typeof(object), typeof(BaseMetroDialog), new PropertyMetadata(null));
         public static readonly DependencyProperty DialogBottomProperty = DependencyProperty.Register("DialogBottom", typeof(object), typeof(BaseMetroDialog), new PropertyMetadata(null));
 
-        public MetroDialogSettings DialogSettings { get; private set; }
+        public MetroDialogSettings DialogSettings { get; }
 
         /// <summary>
         /// Gets/sets the dialog's title.
@@ -84,27 +84,27 @@ namespace MahApps.Metro.Controls.Dialogs
 
         private void Initialize()
         {
-            this.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml") });
-            this.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml") });
-            this.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml") });
-            this.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/MahApps.Metro;component/Themes/Dialogs/BaseMetroDialog.xaml") });
+            Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml") });
+            Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml") });
+            Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml") });
+            Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/MahApps.Metro;component/Themes/Dialogs/BaseMetroDialog.xaml") });
             if (DialogSettings != null && DialogSettings.CustomResourceDictionary != null)
             {
-                this.Resources.MergedDictionaries.Add(DialogSettings.CustomResourceDictionary);
+                Resources.MergedDictionaries.Add(DialogSettings.CustomResourceDictionary);
             }
 
-            this.Loaded += (sender, args) => {
+            Loaded += (sender, args) => {
                                OnLoaded();
                                HandleTheme();
                            };
             ThemeManager.IsThemeChanged += ThemeManager_IsThemeChanged;
-            this.Unloaded += BaseMetroDialog_Unloaded;
+            Unloaded += BaseMetroDialog_Unloaded;
         }
 
         void BaseMetroDialog_Unloaded(object sender, RoutedEventArgs e)
         {
             ThemeManager.IsThemeChanged -= ThemeManager_IsThemeChanged;
-            this.Unloaded -= BaseMetroDialog_Unloaded;
+            Unloaded -= BaseMetroDialog_Unloaded;
         }
 
         void ThemeManager_IsThemeChanged(object sender, OnThemeChangedEventArgs e)
@@ -129,9 +129,9 @@ namespace MahApps.Metro.Controls.Dialogs
                 switch (DialogSettings.ColorScheme)
                 {
                     case MetroDialogColorScheme.Theme:
-                        ThemeManager.ChangeAppStyle(this.Resources, windowAccent, theme);
-                        this.SetValue(BackgroundProperty, ThemeManager.GetResourceFromAppStyle(this.OwningWindow ?? Application.Current.MainWindow, "WhiteColorBrush"));
-                        this.SetValue(ForegroundProperty, ThemeManager.GetResourceFromAppStyle(this.OwningWindow ?? Application.Current.MainWindow, "BlackBrush"));
+                        ThemeManager.ChangeAppStyle(Resources, windowAccent, theme);
+                        SetValue(BackgroundProperty, ThemeManager.GetResourceFromAppStyle(OwningWindow ?? Application.Current.MainWindow, "WhiteColorBrush"));
+                        SetValue(ForegroundProperty, ThemeManager.GetResourceFromAppStyle(OwningWindow ?? Application.Current.MainWindow, "BlackBrush"));
                         break;
                     case MetroDialogColorScheme.Inverted:
                         var inverseTheme = ThemeManager.GetInverseAppTheme(theme);
@@ -141,25 +141,25 @@ namespace MahApps.Metro.Controls.Dialogs
                                                                 "See ThemeManager.GetInverseAppTheme for more infos");
                         }
 
-                        ThemeManager.ChangeAppStyle(this.Resources, windowAccent, inverseTheme);
-                        this.SetValue(BackgroundProperty, ThemeManager.GetResourceFromAppStyle(this.OwningWindow ?? Application.Current.MainWindow, "BlackColorBrush"));
-                        this.SetValue(ForegroundProperty, ThemeManager.GetResourceFromAppStyle(this.OwningWindow ?? Application.Current.MainWindow, "WhiteColorBrush"));
+                        ThemeManager.ChangeAppStyle(Resources, windowAccent, inverseTheme);
+                        SetValue(BackgroundProperty, ThemeManager.GetResourceFromAppStyle(OwningWindow ?? Application.Current.MainWindow, "BlackColorBrush"));
+                        SetValue(ForegroundProperty, ThemeManager.GetResourceFromAppStyle(OwningWindow ?? Application.Current.MainWindow, "WhiteColorBrush"));
                         break;
                     case MetroDialogColorScheme.Accented:
-                        ThemeManager.ChangeAppStyle(this.Resources, windowAccent, theme);
-                        this.SetValue(BackgroundProperty, ThemeManager.GetResourceFromAppStyle(this.OwningWindow ?? Application.Current.MainWindow, "HighlightBrush"));
-                        this.SetValue(ForegroundProperty, ThemeManager.GetResourceFromAppStyle(this.OwningWindow ?? Application.Current.MainWindow, "IdealForegroundColorBrush"));
+                        ThemeManager.ChangeAppStyle(Resources, windowAccent, theme);
+                        SetValue(BackgroundProperty, ThemeManager.GetResourceFromAppStyle(OwningWindow ?? Application.Current.MainWindow, "HighlightBrush"));
+                        SetValue(ForegroundProperty, ThemeManager.GetResourceFromAppStyle(OwningWindow ?? Application.Current.MainWindow, "IdealForegroundColorBrush"));
                         break;
                 }
             }
 
-            if (this.ParentDialogWindow != null)
+            if (ParentDialogWindow != null)
             {
-                this.ParentDialogWindow.SetValue(BackgroundProperty, this.Background);
-                var glowBrush = ThemeManager.GetResourceFromAppStyle(this.OwningWindow ?? Application.Current.MainWindow, "AccentColorBrush");
+                ParentDialogWindow.SetValue(BackgroundProperty, Background);
+                var glowBrush = ThemeManager.GetResourceFromAppStyle(OwningWindow ?? Application.Current.MainWindow, "AccentColorBrush");
                 if (glowBrush != null)
                 {
-                    this.ParentDialogWindow.SetValue(MetroWindow.GlowBrushProperty, glowBrush);
+                    ParentDialogWindow.SetValue(MetroWindow.GlowBrushProperty, glowBrush);
                 }
             }
         }
@@ -207,23 +207,23 @@ namespace MahApps.Metro.Controls.Dialogs
         {
             Dispatcher.VerifyAccess();
 
-            if (this.IsLoaded) return new Task(() => { });
+            if (IsLoaded) return new Task(() => { });
 
             if (!DialogSettings.AnimateShow)
-                this.Opacity = 1.0; //skip the animation
+                Opacity = 1.0; //skip the animation
 
             TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
 
             RoutedEventHandler handler = null;
             handler = (sender, args) => {
-                this.Loaded -= handler;
+                Loaded -= handler;
 
-                this.Focus();
+                Focus();
 
                 tcs.TrySetResult(null);
             };
 
-            this.Loaded += handler;
+            Loaded += handler;
 
             return tcs.Task;
         }
@@ -301,7 +301,7 @@ namespace MahApps.Metro.Controls.Dialogs
 
             if (DialogSettings.AnimateHide)
             {
-                Storyboard closingStoryboard = this.Resources["DialogCloseStoryboard"] as Storyboard;
+                Storyboard closingStoryboard = Resources["DialogCloseStoryboard"] as Storyboard;
 
                 if (closingStoryboard == null)
                     throw new InvalidOperationException("Unable to find the dialog closing storyboard. Did you forget to add BaseMetroDialog.xaml to your merged dictionaries?");
@@ -321,7 +321,7 @@ namespace MahApps.Metro.Controls.Dialogs
             }
             else
             {
-                this.Opacity = 0.0;
+                Opacity = 0.0;
                 tcs.TrySetResult(null); //skip the animation
             }
 

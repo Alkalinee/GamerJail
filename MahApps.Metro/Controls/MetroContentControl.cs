@@ -70,7 +70,7 @@ namespace MahApps.Metro.Controls
             {
                 if (!transitionLoaded)
                 {
-                    transitionLoaded = this.OnlyLoadTransition;
+                    transitionLoaded = OnlyLoadTransition;
                     VisualStateManager.GoToState(this, ReverseTransition ? "AfterLoadedReverse" : "AfterLoaded", true);
                 }
                 IsVisibleChanged -= MetroContentControlIsVisibleChanged;

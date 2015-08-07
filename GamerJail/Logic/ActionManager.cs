@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Threading;
-using GamerJail.Utilities;
 using GamerJail.Shared;
+using GamerJail.Utilities;
 
 namespace GamerJail.Logic
 {
@@ -33,6 +33,8 @@ namespace GamerJail.Logic
                 {
                     _isEnabled = value;
                     _timer.IsEnabled = value;
+                    if (!value && ShutdownAction?.IsEnabled == true)
+                        ShutdownAction.Cancel();
                 }
             }
         }
@@ -53,10 +55,15 @@ namespace GamerJail.Logic
             }
         }
 
+        public ShutdownAction ShutdownAction { get; set; }
+
         public void CheckTime()
         {
             if (_serviceManager.IsFreeDay)
                 return; //We don't even care
+
+            if (ShutdownAction?.IsEnabled == true)
+                return;
 
             var helper = new DateTimeHelper();
             _serviceManager.RefreshTimePlayedToday();
@@ -96,6 +103,19 @@ namespace GamerJail.Logic
                     throw new ArgumentOutOfRangeException();
             }
 
+            if (DateTime.Now < DateTime.Today.Date.AddHours(_serviceManager.Config.TimeSpan.FromTime) ||
+                DateTime.Now > DateTimeHelper.GetToday().AddHours(_serviceManager.Config.TimeSpan.ToTime))
+            {
+                TimeLeft = TimeSpan.Zero;
+            }
+            else
+            {
+                var time = DateTimeHelper.GetToday().AddMinutes(_serviceManager.Config.TimeSpan.ToTime*30) -
+                           DateTime.Now;
+                if (TimeLeft < time)
+                    TimeLeft = time;
+            }
+
             if (TimeLeft < TimeSpan.FromMinutes(30) && TimeLeft > TimeSpan.FromMinutes(5))
             {
                 CurrentState = State.ComingToEnd;
@@ -107,11 +127,10 @@ namespace GamerJail.Logic
             else if (TimeLeft < TimeSpan.Zero)
             {
                 CurrentState = State.StopDaShitImmediately;
-            }
-            else if(TimeLeft < TimeSpan.FromMinutes(-5))
-            {
-                CurrentState = State.StopDaShitImmediately;
-                NothingIsAwesome?.Invoke(this, EventArgs.Empty);
+
+                ShutdownAction = new ShutdownAction();
+                ShutdownAction.Start();
+                ShutdownAction.InvokeActions += (sender, args) => NothingIsAwesome?.Invoke(this, EventArgs.Empty);
             }
             else
             {

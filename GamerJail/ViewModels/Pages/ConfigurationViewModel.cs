@@ -1,16 +1,18 @@
 ﻿using System;
+using System.IO;
 using System.Security;
+using System.Web.Script.Serialization;
 using System.Windows;
 using GamerJail.Logic;
 using GamerJail.Shared;
 using GamerJail.Shared.Utilities;
+using GamerJail.ViewManagement;
 using GamerJail.Views;
 
-namespace GamerJail.ViewModels
+namespace GamerJail.ViewModels.Pages
 {
-    class ConfigurationViewModel : PropertyChangedBase
+    class ConfigurationViewModel : PropertyChangedBase, IView
     {
-        private readonly Window _window;
         private int _lowerValue;
         private int _upperValue;
         private bool _showWarning;
@@ -21,9 +23,8 @@ namespace GamerJail.ViewModels
         private bool _canChangePassword;
         private RelayCommand _changePasswordCommand;
 
-        public ConfigurationViewModel(ServiceManager serviceManager, Window window)
+        public ConfigurationViewModel(ServiceManager serviceManager)
         {
-            _window = window;
             ServiceManager = serviceManager;
             GamingTimePerDay = serviceManager.Config.GamingTimePerDay;
             LowerValue = ConvertTimeSpanBack(serviceManager.Config.TimeSpan.FromTime);
@@ -43,6 +44,7 @@ namespace GamerJail.ViewModels
         }
 
         public event EventHandler ClearPasswords;
+        public event EventHandler CloseRequest;
 
         public ServiceManager ServiceManager { get; }
 
@@ -114,7 +116,7 @@ namespace GamerJail.ViewModels
             {
                 return _changePasswordCommand ?? (_changePasswordCommand = new RelayCommand(parameter =>
                 {
-                    var dialog = new PasswordDialogWindow {Owner = _window};
+                    var dialog = new PasswordDialogWindow {Owner = Application.Current.MainWindow};
                     if (dialog.ShowDialog() == true)
                     {
                         ServiceManager.Config.Password = _password1;
@@ -172,6 +174,15 @@ namespace GamerJail.ViewModels
 
             PasswordErrorMessage = null;
             return true;
+        }
+
+        public void Close()
+        {
+            var configFile =
+                new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "GamerJail", "config.xml"));
+            File.WriteAllText(configFile.FullName
+                , new JavaScriptSerializer().Serialize(ServiceManager.Config));
         }
     }
 }

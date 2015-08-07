@@ -28,11 +28,11 @@ namespace MahApps.Metro.Controls
         {
             InitializeComponent();
 
-            this.IsGlowing = true;
-            this.AllowsTransparency = true;
-            this.Closing += (sender, e) => e.Cancel = !closing;
+            IsGlowing = true;
+            AllowsTransparency = true;
+            Closing += (sender, e) => e.Cancel = !closing;
 
-            this.Owner = owner;
+            Owner = owner;
             glow.Visibility = Visibility.Collapsed;
 
             var b = new Binding("GlowBrush");
@@ -169,7 +169,7 @@ namespace MahApps.Metro.Controls
         {
             base.OnApplyTemplate();
 
-            this.OpacityStoryboard = this.TryFindResource("OpacityStoryboard") as Storyboard;
+            OpacityStoryboard = TryFindResource("OpacityStoryboard") as Storyboard;
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -207,7 +207,7 @@ namespace MahApps.Metro.Controls
             }
             else if (Owner.WindowState == WindowState.Normal)
             {
-                if (this.closing) return;
+                if (closing) return;
 
                 Visibility = IsGlowing ? Visibility.Visible : Visibility.Collapsed;
                 glow.Visibility = IsGlowing ? Visibility.Visible : Visibility.Collapsed;
@@ -243,7 +243,7 @@ namespace MahApps.Metro.Controls
         {
             if (msg == (int)WM.SHOWWINDOW)
             {
-                if((int)lParam == 3 && this.Visibility != Visibility.Visible) // 3 == SW_PARENTOPENING
+                if((int)lParam == 3 && Visibility != Visibility.Visible) // 3 == SW_PARENTOPENING
                 {
                     handled = true; //handle this message so window isn't shown until we want it to                   
                 }

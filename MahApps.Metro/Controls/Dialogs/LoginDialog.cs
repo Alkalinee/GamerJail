@@ -62,7 +62,7 @@ namespace MahApps.Metro.Controls.Dialogs
         {
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                this.Focus();
+                Focus();
                 if (string.IsNullOrEmpty(PART_TextBox.Text))
                 {
                     PART_TextBox.Focus();
@@ -95,7 +95,7 @@ namespace MahApps.Metro.Controls.Dialogs
                 PART_TextBox.KeyDown -= affirmativeKeyHandler;
                 PART_TextBox2.KeyDown -= affirmativeKeyHandler;
 
-                this.KeyDown -= escapeKeyHandler;
+                KeyDown -= escapeKeyHandler;
 
                 PART_NegativeButton.Click -= negativeHandler;
                 PART_AffirmativeButton.Click -= affirmativeHandler;
@@ -159,7 +159,7 @@ namespace MahApps.Metro.Controls.Dialogs
             PART_TextBox.KeyDown += affirmativeKeyHandler;
             PART_TextBox2.KeyDown += affirmativeKeyHandler;
 
-            this.KeyDown += escapeKeyHandler;
+            KeyDown += escapeKeyHandler;
 
             PART_NegativeButton.Click += negativeHandler;
             PART_AffirmativeButton.Click += affirmativeHandler;
@@ -169,23 +169,23 @@ namespace MahApps.Metro.Controls.Dialogs
 
         protected override void OnLoaded()
         {
-            var settings = this.DialogSettings as LoginDialogSettings;
+            var settings = DialogSettings as LoginDialogSettings;
             if (settings != null && settings.EnablePasswordPreview)
             {
-                var win8MetroPasswordStyle = this.FindResource("Win8MetroPasswordBox") as Style;
+                var win8MetroPasswordStyle = FindResource("Win8MetroPasswordBox") as Style;
                 if (win8MetroPasswordStyle != null)
                 {
                     PART_TextBox2.Style = win8MetroPasswordStyle;
                 }
             }
 
-            this.AffirmativeButtonText = this.DialogSettings.AffirmativeButtonText;
-            this.NegativeButtonText = this.DialogSettings.NegativeButtonText;
+            AffirmativeButtonText = DialogSettings.AffirmativeButtonText;
+            NegativeButtonText = DialogSettings.NegativeButtonText;
 
-            switch (this.DialogSettings.ColorScheme)
+            switch (DialogSettings.ColorScheme)
             {
                 case MetroDialogColorScheme.Accented:
-                    this.PART_NegativeButton.Style = this.FindResource("AccentedDialogHighlightedSquareButton") as Style;
+                    PART_NegativeButton.Style = FindResource("AccentedDialogHighlightedSquareButton") as Style;
                     PART_TextBox.SetResourceReference(ForegroundProperty, "BlackColorBrush");
                     PART_TextBox2.SetResourceReference(ForegroundProperty, "BlackColorBrush");
                     break;

@@ -36,6 +36,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
@@ -94,8 +95,12 @@
     <Compile Include="Data\DatabaseManager.cs" />
     <Compile Include="Data\PlayTime.cs" />
     <Compile Include="Data\Program.cs" />
+    <Compile Include="Data\StatisticManager.cs" />
+    <Compile Include="Data\Statistics.cs" />
+    <Compile Include="Extensions\EnumerationExtension.cs" />
     <Compile Include="Logic\ActionManager.cs" />
     <Compile Include="Logic\GameChecker.cs" />
+    <Compile Include="Logic\ShutdownAction.cs" />
     <Compile Include="Native\POINT.cs" />
     <Compile Include="Native\RECT.cs" />
     <Compile Include="Native\UnsafeNativeMethods.cs" />
@@ -107,14 +112,24 @@
     <Compile Include="Utilities\ProcessExtensions.cs" />
     <Compile Include="Logic\Service.cs" />
     <Compile Include="Logic\ServiceManager.cs" />
+    <Compile Include="ViewManagement\IView.cs" />
+    <Compile Include="ViewManagement\ViewManager.cs" />
+    <Compile Include="ViewModels\Pages\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Pages\StatisticViewModel.cs" />
     <Compile Include="ViewModels\PasswordDialogViewModel.cs" />
-    <Compile Include="ViewModels\ConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\Pages\ConfigurationViewModel.cs" />
+    <Compile Include="Views\ConfigurationView.xaml.cs">
+      <DependentUpon>ConfigurationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PasswordDialogWindow.xaml.cs">
       <DependentUpon>PasswordDialogWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ConfigurationWindow.xaml.cs">
-      <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
+    <Compile Include="Views\StatisticView.xaml.cs">
+      <DependentUpon>StatisticView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -128,11 +143,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PasswordDialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ConfigurationWindow.xaml">
+    <Page Include="Views\StatisticView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -178,6 +201,10 @@
     <ProjectReference Include="..\MahApps.Metro\MahApps.Metro.NET45.csproj">
       <Project>{942d11c4-29f5-46c4-8c14-4b976d56c637}</Project>
       <Name>MahApps.Metro.NET45</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PieControls\PieControls.csproj">
+      <Project>{cec6e596-d667-4068-bf48-188825f52c82}</Project>
+      <Name>PieControls</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

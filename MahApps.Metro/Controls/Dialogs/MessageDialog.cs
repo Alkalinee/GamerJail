@@ -25,10 +25,10 @@ namespace MahApps.Metro.Controls.Dialogs
         internal Task<MessageDialogResult> WaitForButtonPressAsync()
         {
             Dispatcher.BeginInvoke(new Action(() => {
-                this.Focus();
+                Focus();
 
                 //kind of acts like a selective 'IsDefault' mechanism.
-                switch (this.ButtonStyle)
+                switch (ButtonStyle)
                 {
                     case MessageDialogStyle.Affirmative:
                         PART_AffirmativeButton.Focus();

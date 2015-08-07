@@ -80,16 +80,16 @@ namespace MahApps.Metro.Controls
 
         public WindowButtonCommands()
         {
-            this.Loaded += WindowButtonCommands_Loaded;
+            Loaded += WindowButtonCommands_Loaded;
         }
 
         private void WindowButtonCommands_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Loaded -= WindowButtonCommands_Loaded;
-            var parentWindow = this.ParentWindow;
+            Loaded -= WindowButtonCommands_Loaded;
+            var parentWindow = ParentWindow;
             if (null == parentWindow)
             {
-                this.ParentWindow = this.TryFindParent<MetroWindow>();
+                ParentWindow = this.TryFindParent<MetroWindow>();
             }
         }
 
@@ -139,20 +139,20 @@ namespace MahApps.Metro.Controls
 
         private void MinimizeClick(object sender, RoutedEventArgs e)
         {
-            if (null == this.ParentWindow) return;
-            SystemCommands.MinimizeWindow(this.ParentWindow);
+            if (null == ParentWindow) return;
+            SystemCommands.MinimizeWindow(ParentWindow);
         }
 
         private void MaximizeClick(object sender, RoutedEventArgs e)
         {
-            if (null == this.ParentWindow) return;
-            if (this.ParentWindow.WindowState == WindowState.Maximized)
+            if (null == ParentWindow) return;
+            if (ParentWindow.WindowState == WindowState.Maximized)
             {
-                SystemCommands.RestoreWindow(this.ParentWindow);
+                SystemCommands.RestoreWindow(ParentWindow);
             }
             else
             {
-                SystemCommands.MaximizeWindow(this.ParentWindow);
+                SystemCommands.MaximizeWindow(ParentWindow);
             }
         }
 
@@ -166,8 +166,8 @@ namespace MahApps.Metro.Controls
                 return;
             }
 
-            if (null == this.ParentWindow) return;
-            this.ParentWindow.Close();
+            if (null == ParentWindow) return;
+            ParentWindow.Close();
         }
 
         private MetroWindow _parentWindow;
@@ -182,7 +182,7 @@ namespace MahApps.Metro.Controls
                     return;
                 }
                 _parentWindow = value;
-                this.RaisePropertyChanged("ParentWindow");
+                RaisePropertyChanged("ParentWindow");
             }
         }
 

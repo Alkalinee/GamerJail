@@ -70,11 +70,11 @@ namespace MahApps.Metro.Behaviours
             AssociatedObject.WindowStyle = WindowStyle.None;
 
             savedBorderThickness = AssociatedObject.BorderThickness;
-            borderThicknessChangeNotifier = new PropertyChangeNotifier(this.AssociatedObject, Window.BorderThicknessProperty);
+            borderThicknessChangeNotifier = new PropertyChangeNotifier(AssociatedObject, Control.BorderThicknessProperty);
             borderThicknessChangeNotifier.ValueChanged += BorderThicknessChangeNotifierOnValueChanged;
 
             savedTopMost = AssociatedObject.Topmost;
-            topMostChangeNotifier = new PropertyChangeNotifier(this.AssociatedObject, Window.TopmostProperty);
+            topMostChangeNotifier = new PropertyChangeNotifier(AssociatedObject, Window.TopmostProperty);
             topMostChangeNotifier.ValueChanged += TopMostChangeNotifierOnValueChanged;
 
             AssociatedObject.Loaded += AssociatedObject_Loaded;
@@ -83,7 +83,7 @@ namespace MahApps.Metro.Behaviours
             AssociatedObject.StateChanged += OnAssociatedObjectHandleMaximize;
 
             // handle the maximized state here too (to handle the border in a correct way)
-            this.HandleMaximize();
+            HandleMaximize();
 
             base.OnAttached();
         }
@@ -106,7 +106,7 @@ namespace MahApps.Metro.Behaviours
                 if (!Equals(windowChrome.UseNoneWindowStyle, metroWindow.UseNoneWindowStyle))
                 {
                     windowChrome.UseNoneWindowStyle = metroWindow.UseNoneWindowStyle;
-                    this.ForceRedrawWindowFromPropertyChanged();
+                    ForceRedrawWindowFromPropertyChanged();
                 }
             }
         }
@@ -126,7 +126,7 @@ namespace MahApps.Metro.Behaviours
                     // this only happens if we change this at runtime
                     var removed = _ModifyStyle(0, WS.MAXIMIZEBOX | WS.MINIMIZEBOX | WS.THICKFRAME);
                     windowChrome.IgnoreTaskbarOnMaximize = metroWindow.IgnoreTaskbarOnMaximize;
-                    this.ForceRedrawWindowFromPropertyChanged();
+                    ForceRedrawWindowFromPropertyChanged();
                     if (removed)
                     {
                         _ModifyStyle(WS.MAXIMIZEBOX | WS.MINIMIZEBOX | WS.THICKFRAME, 0);
@@ -145,11 +145,11 @@ namespace MahApps.Metro.Behaviours
         [SecurityCritical]
         private bool _ModifyStyle(WS removeStyle, WS addStyle)
         {
-            if (this.handle == IntPtr.Zero)
+            if (handle == IntPtr.Zero)
             {
                 return false;
             }
-            var intPtr = NativeMethods.GetWindowLongPtr(this.handle, GWL.STYLE);
+            var intPtr = NativeMethods.GetWindowLongPtr(handle, GWL.STYLE);
             var dwStyle = (WS)(Environment.Is64BitProcess ? intPtr.ToInt64() : intPtr.ToInt32());
             var dwNewStyle = (dwStyle & ~removeStyle) | addStyle;
             if (dwStyle == dwNewStyle)
@@ -157,16 +157,16 @@ namespace MahApps.Metro.Behaviours
                 return false;
             }
 
-            NativeMethods.SetWindowLongPtr(this.handle, GWL.STYLE, new IntPtr((int)dwNewStyle));
+            NativeMethods.SetWindowLongPtr(handle, GWL.STYLE, new IntPtr((int)dwNewStyle));
             return true;
         }
 
         private void ForceRedrawWindowFromPropertyChanged()
         {
-            this.HandleMaximize();
-            if (this.handle != IntPtr.Zero)
+            HandleMaximize();
+            if (handle != IntPtr.Zero)
             {
-                UnsafeNativeMethods.RedrawWindow(this.handle, IntPtr.Zero, IntPtr.Zero, Constants.RedrawWindowFlags.Invalidate | Constants.RedrawWindowFlags.Frame);
+                UnsafeNativeMethods.RedrawWindow(handle, IntPtr.Zero, IntPtr.Zero, Constants.RedrawWindowFlags.Invalidate | Constants.RedrawWindowFlags.Frame);
             }
         }
 

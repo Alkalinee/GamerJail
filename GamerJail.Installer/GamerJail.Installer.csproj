@@ -71,6 +71,8 @@
     <Compile Include="Resources\Class1.cs" />
     <Compile Include="ViewManagement\View.cs" />
     <Compile Include="ViewManagement\ViewManager.cs" />
+    <Compile Include="ViewManagement\Views\Finished.cs" />
+    <Compile Include="ViewManagement\Views\Installation.cs" />
     <Compile Include="ViewManagement\Views\Step1.cs" />
     <Compile Include="ViewManagement\Views\Step2.cs" />
     <Compile Include="ViewManagement\Views\Step3.cs" />
@@ -90,6 +92,9 @@
     </Compile>
     <Compile Include="Views\Page5.xaml.cs">
       <DependentUpon>Page5.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Page6.xaml.cs">
+      <DependentUpon>Page6.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -131,6 +136,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Page6.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -150,6 +159,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="..\GamerJail\bin\Release\GamerJail.exe.config">
+      <Link>InstallationFiles\GamerJail.exe.config</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\GamerJail.vshost.exe.config">
+      <Link>InstallationFiles\GamerJail.vshost.exe.config</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\GamerJail.vshost.exe.manifest">
+      <Link>InstallationFiles\GamerJail.vshost.exe.manifest</Link>
+    </Resource>
     <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -173,6 +191,90 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="..\GamerJail\bin\Release\EntityFramework.dll">
+      <Link>InstallationFiles\EntityFramework.dll</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\EntityFramework.SqlServer.dll">
+      <Link>InstallationFiles\EntityFramework.SqlServer.dll</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\x64\SQLite.Interop.dll">
+      <Link>InstallationFiles\x64\SQLite.Interop.dll</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\x86\SQLite.Interop.dll">
+      <Link>InstallationFiles\x86\SQLite.Interop.dll</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\EntityFramework.SqlServer.xml">
+      <Link>InstallationFiles\EntityFramework.SqlServer.xml</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\EntityFramework.xml">
+      <Link>InstallationFiles\EntityFramework.xml</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\GamerJail.exe">
+      <Link>InstallationFiles\GamerJail.exe</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\GamerJail.pdb">
+      <Link>InstallationFiles\GamerJail.pdb</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\GamerJail.Resources.dll">
+      <Link>InstallationFiles\GamerJail.Resources.dll</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\GamerJail.Resources.pdb">
+      <Link>InstallationFiles\GamerJail.Resources.pdb</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\GamerJail.Shared.dll">
+      <Link>InstallationFiles\GamerJail.Shared.dll</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\GamerJail.Shared.pdb">
+      <Link>InstallationFiles\GamerJail.Shared.pdb</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\GamerJail.vshost.exe">
+      <Link>InstallationFiles\GamerJail.vshost.exe</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\Hardcodet.Wpf.TaskbarNotification.dll">
+      <Link>InstallationFiles\Hardcodet.Wpf.TaskbarNotification.dll</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\Hardcodet.Wpf.TaskbarNotification.pdb">
+      <Link>InstallationFiles\Hardcodet.Wpf.TaskbarNotification.pdb</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\Hardcodet.Wpf.TaskbarNotification.xml">
+      <Link>InstallationFiles\Hardcodet.Wpf.TaskbarNotification.xml</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\MahApps.Metro.dll">
+      <Link>InstallationFiles\MahApps.Metro.dll</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\MahApps.Metro.xml">
+      <Link>InstallationFiles\MahApps.Metro.xml</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\Microsoft.Expression.Drawing.dll">
+      <Link>InstallationFiles\Microsoft.Expression.Drawing.dll</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\Microsoft.Expression.Drawing.xml">
+      <Link>InstallationFiles\Microsoft.Expression.Drawing.xml</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\PieControls.dll">
+      <Link>InstallationFiles\PieControls.dll</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\PieControls.pdb">
+      <Link>InstallationFiles\PieControls.pdb</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\System.Data.SQLite.dll">
+      <Link>InstallationFiles\System.Data.SQLite.dll</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\System.Data.SQLite.EF6.dll">
+      <Link>InstallationFiles\System.Data.SQLite.EF6.dll</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\System.Data.SQLite.Linq.dll">
+      <Link>InstallationFiles\System.Data.SQLite.Linq.dll</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\System.Data.SQLite.xml">
+      <Link>InstallationFiles\System.Data.SQLite.xml</Link>
+    </Resource>
+    <Resource Include="..\GamerJail\bin\Release\System.Windows.Interactivity.dll">
+      <Link>InstallationFiles\System.Windows.Interactivity.dll</Link>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1593,7 +1593,7 @@ namespace Standard
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
         protected override bool ReleaseHandle()
         {
-            Status s = NativeMethods.GdiplusShutdown(this.handle);
+            Status s = NativeMethods.GdiplusShutdown(handle);
             return s == Status.Ok;
         }
 
@@ -1661,7 +1661,7 @@ namespace Standard
         {
             try
             {
-                if (!this.IsInvalid)
+                if (!IsInvalid)
                 {
                     int dwCookie = handle.ToInt32();
                     handle = IntPtr.Zero;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Media;
 using GamerJail.Native;
@@ -33,6 +34,8 @@ namespace GamerJail.Utilities
 
         public static ImageSource GetFileImage(this string path)
         {
+            if (!File.Exists(path))
+                return null;
            return Icon.ExtractAssociatedIcon(path).ToImageSource();
         }
     }

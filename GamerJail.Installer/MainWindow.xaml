@@ -132,6 +132,7 @@
                 <Button Width="80"
                         Height="25"
                         Content="Abbrechen"
+                        IsEnabled="{Binding CanCancel}"
                         Style="{StaticResource AwesomeButton}"
                         ToolTip="Setup abbrechen" />
                 <Button Width="80"
@@ -149,13 +150,17 @@
                     <Button.Style>
                         <Style BasedOn="{StaticResource AwesomeButton}" TargetType="Button">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsFinalStep}" Value="true">
+                                <DataTrigger Binding="{Binding CurrentViewMode}" Value="LastStep">
                                     <Setter Property="Content" Value="Installieren" />
                                     <Setter Property="ToolTip" Value="Programm installieren" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding IsFinalStep}" Value="false">
+                                <DataTrigger Binding="{Binding CurrentViewMode}" Value="Configuration">
                                     <Setter Property="Content" Value="Weiter" />
                                     <Setter Property="ToolTip" Value="Nächster Schritt" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding CurrentViewMode}" Value="Finished">
+                                    <Setter Property="Content" Value="Fertig" />
+                                    <Setter Property="ToolTip" Value="Installation fertigstellen" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

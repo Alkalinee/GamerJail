@@ -13,12 +13,12 @@ namespace MahApps.Metro
         /// <summary>
         /// The ResourceDictionary that represents this application theme.
         /// </summary>
-        public ResourceDictionary Resources {get; private set;}
+        public ResourceDictionary Resources {get; }
 
         /// <summary>
         /// Gets the name of the application theme.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         public AppTheme(string name, Uri resourceAddress)
         {
@@ -28,8 +28,8 @@ namespace MahApps.Metro
             if(resourceAddress == null)
                 throw new ArgumentNullException("resourceAddress");
 
-            this.Name = name;
-            this.Resources = new ResourceDictionary {Source = resourceAddress};
+            Name = name;
+            Resources = new ResourceDictionary {Source = resourceAddress};
         }
     }
 }

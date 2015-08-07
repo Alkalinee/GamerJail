@@ -194,8 +194,8 @@ namespace MahApps.Metro.Controls
         /// </summary>
         public FrameworkElement FocusedElement
         {
-            get { return (FrameworkElement)this.GetValue(FocusedElementProperty); }
-            set { this.SetValue(FocusedElementProperty, value); }
+            get { return (FrameworkElement)GetValue(FocusedElementProperty); }
+            set { SetValue(FocusedElementProperty, value); }
         }
 
         /// <summary>
@@ -203,13 +203,13 @@ namespace MahApps.Metro.Controls
         /// </summary>
         public bool AllowFocusElement
         {
-            get { return (bool)this.GetValue(AllowFocusElementProperty); }
-            set { this.SetValue(AllowFocusElementProperty, value); }
+            get { return (bool)GetValue(AllowFocusElementProperty); }
+            set { SetValue(AllowFocusElementProperty, value); }
         }
         
         public Flyout()
         {
-            this.Loaded += (sender, args) => UpdateFlyoutTheme();
+            Loaded += (sender, args) => UpdateFlyoutTheme();
         }
 
         private void UpdateFlyoutTheme()
@@ -218,7 +218,7 @@ namespace MahApps.Metro.Controls
 
             if (DesignerProperties.GetIsInDesignMode(this))
             {
-                this.Visibility = flyoutsControl != null ? Visibility.Collapsed : Visibility.Visible;
+                Visibility = flyoutsControl != null ? Visibility.Collapsed : Visibility.Visible;
             }
 
             var window = this.TryFindParent<MetroWindow>();
@@ -230,11 +230,11 @@ namespace MahApps.Metro.Controls
                 {
                     var accent = windowTheme.Item2;
 
-                    this.ChangeFlyoutTheme(accent, windowTheme.Item1);
+                    ChangeFlyoutTheme(accent, windowTheme.Item1);
                 }
 
                 // we must certain to get the right foreground for window commands and buttons
-                if (flyoutsControl != null && this.IsOpen)
+                if (flyoutsControl != null && IsOpen)
                 {
                     flyoutsControl.HandleFlyoutStatusChange(this, window);
                 }
@@ -244,16 +244,16 @@ namespace MahApps.Metro.Controls
         internal void ChangeFlyoutTheme(Accent windowAccent, AppTheme windowTheme)
         {
             // Beware: Über-dumb code ahead!
-            switch (this.Theme)
+            switch (Theme)
             {
                 case FlyoutTheme.Accent:
-                    ThemeManager.ChangeAppStyle(this.Resources, windowAccent, windowTheme);
-                    this.SetResourceReference(BackgroundProperty, "HighlightBrush");
-                    this.SetResourceReference(ForegroundProperty, "IdealForegroundColorBrush");
+                    ThemeManager.ChangeAppStyle(Resources, windowAccent, windowTheme);
+                    SetResourceReference(BackgroundProperty, "HighlightBrush");
+                    SetResourceReference(ForegroundProperty, "IdealForegroundColorBrush");
                     break;
 
                 case FlyoutTheme.Adapt:
-                    ThemeManager.ChangeAppStyle(this.Resources, windowAccent, windowTheme);
+                    ThemeManager.ChangeAppStyle(Resources, windowAccent, windowTheme);
                     break;
 
                 case FlyoutTheme.Inverse:
@@ -263,15 +263,15 @@ namespace MahApps.Metro.Controls
                         throw new InvalidOperationException("The inverse flyout theme only works if the window theme abides the naming convention. " +
                                                             "See ThemeManager.GetInverseAppTheme for more infos");
 
-                    ThemeManager.ChangeAppStyle(this.Resources, windowAccent, inverseTheme);
+                    ThemeManager.ChangeAppStyle(Resources, windowAccent, inverseTheme);
                     break;
 
                 case FlyoutTheme.Dark:
-                    ThemeManager.ChangeAppStyle(this.Resources, windowAccent, ThemeManager.GetAppTheme("BaseDark"));
+                    ThemeManager.ChangeAppStyle(Resources, windowAccent, ThemeManager.GetAppTheme("BaseDark"));
                     break;
 
                 case FlyoutTheme.Light:
-                    ThemeManager.ChangeAppStyle(this.Resources, windowAccent, ThemeManager.GetAppTheme("BaseLight"));
+                    ThemeManager.ChangeAppStyle(Resources, windowAccent, ThemeManager.GetAppTheme("BaseLight"));
                     break;
             }
         }
@@ -379,35 +379,35 @@ namespace MahApps.Metro.Controls
 
         private void HideStoryboard_Completed(object sender, EventArgs e)
         {
-            this.hideStoryboard.Completed -= this.HideStoryboard_Completed;
+            hideStoryboard.Completed -= HideStoryboard_Completed;
 
-            this.Hide();
+            Hide();
         }
 
         private void Hide()
         {
             // hide the flyout, we should get better performance and prevent showing the flyout on any resizing events
-            this.Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
 
-            this.RaiseEvent(new RoutedEventArgs(ClosingFinishedEvent));
+            RaiseEvent(new RoutedEventArgs(ClosingFinishedEvent));
         }
 
         private void TryFocusElement()
         {
-            if (this.AllowFocusElement)
+            if (AllowFocusElement)
             {
                 // first focus itself
-                this.Focus();
+                Focus();
                 
-                if (this.FocusedElement != null)
+                if (FocusedElement != null)
                 {
-                    this.FocusedElement.Focus();
+                    FocusedElement.Focus();
                 }
-                else if (this.PART_Content == null || !this.PART_Content.MoveFocus(new TraversalRequest(FocusNavigationDirection.First)))
+                else if (PART_Content == null || !PART_Content.MoveFocus(new TraversalRequest(FocusNavigationDirection.First)))
                 {
-                    if (this.PART_Header != null)
+                    if (PART_Header != null)
                     {
-                        this.PART_Header.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+                        PART_Header.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
                     }
                 }
             }

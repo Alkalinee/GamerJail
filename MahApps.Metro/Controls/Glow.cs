@@ -18,26 +18,26 @@ namespace MahApps.Metro.Controls
 
         public SolidColorBrush GlowBrush
         {
-            get { return (SolidColorBrush)this.GetValue(GlowBrushProperty); }
-            set { this.SetValue(GlowBrushProperty, value); }
+            get { return (SolidColorBrush)GetValue(GlowBrushProperty); }
+            set { SetValue(GlowBrushProperty, value); }
         }
 
         public SolidColorBrush NonActiveGlowBrush
         {
-            get { return (SolidColorBrush)this.GetValue(NonActiveGlowBrushProperty); }
-            set { this.SetValue(NonActiveGlowBrushProperty, value); }
+            get { return (SolidColorBrush)GetValue(NonActiveGlowBrushProperty); }
+            set { SetValue(NonActiveGlowBrushProperty, value); }
         }
 
         public bool IsGlow
         {
-            get { return (bool)this.GetValue(IsGlowProperty); }
-            set { this.SetValue(IsGlowProperty, value); }
+            get { return (bool)GetValue(IsGlowProperty); }
+            set { SetValue(IsGlowProperty, value); }
         }
 
         public Orientation Orientation
         {
-            get { return (Orientation)this.GetValue(OrientationProperty); }
-            set { this.SetValue(OrientationProperty, value); }
+            get { return (Orientation)GetValue(OrientationProperty); }
+            set { SetValue(OrientationProperty, value); }
         }
     }
 }

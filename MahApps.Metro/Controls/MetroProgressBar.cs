@@ -87,7 +87,7 @@ namespace MahApps.Metro.Controls
         {
             var actualWidth = ActualWidth;
             var bar = this;
-            if (this.Visibility == Visibility.Visible && this.IsIndeterminate)
+            if (Visibility == Visibility.Visible && IsIndeterminate)
             {
                 bar.ResetStoryboard(actualWidth, true);
             }
@@ -95,11 +95,11 @@ namespace MahApps.Metro.Controls
 
         private void ResetStoryboard(double width, bool removeOldStoryboard)
         {
-            if (!this.IsIndeterminate)
+            if (!IsIndeterminate)
             {
                 return;
             }
-            lock (this.lockme)
+            lock (lockme)
             {
                 //perform calculations
                 var containerAnimStart = CalcContainerAnimStart(width);
@@ -111,9 +111,9 @@ namespace MahApps.Metro.Controls
                 {
                     var indeterminate = GetIndeterminate();
 
-                    if (indeterminate != null && this.indeterminateStoryboard != null)
+                    if (indeterminate != null && indeterminateStoryboard != null)
                     {
-                        var newStoryboard = this.indeterminateStoryboard.Clone();
+                        var newStoryboard = indeterminateStoryboard.Clone();
                         var doubleAnim = newStoryboard.Children.First(t => t.Name == "MainDoubleAnim");
                         doubleAnim.SetValue(DoubleAnimation.FromProperty, containerAnimStart);
                         doubleAnim.SetValue(DoubleAnimation.ToProperty, containerAnimEnd);
@@ -261,9 +261,9 @@ namespace MahApps.Metro.Controls
         {
             base.OnApplyTemplate();
 
-            lock (this.lockme)
+            lock (lockme)
             {
-                this.indeterminateStoryboard = this.TryFindResource("IndeterminateStoryboard") as Storyboard;
+                indeterminateStoryboard = TryFindResource("IndeterminateStoryboard") as Storyboard;
             }
 
             Loaded -= LoadedHandler;

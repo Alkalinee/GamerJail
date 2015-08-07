@@ -16,7 +16,7 @@
                        Foreground="White"
                        Text="Willkommen," />
             <TextBlock Foreground="{StaticResource BlackBrush}"
-                       Text="wir werden nun beginnen, einen Jugendschutz auf diesem PC zu konfigurieren"
+                       Text="wir werden nun beginnen, GamerJail auf diesem PC zu konfigurieren"
                        TextWrapping="Wrap" />
         </StackPanel>
     </Grid>

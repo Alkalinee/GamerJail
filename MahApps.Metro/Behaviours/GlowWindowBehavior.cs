@@ -23,7 +23,7 @@ namespace MahApps.Metro.Behaviours
         {
             get
             {
-                var metroWindow = this.AssociatedObject as MetroWindow;
+                var metroWindow = AssociatedObject as MetroWindow;
                 return metroWindow != null && (metroWindow.UseNoneWindowStyle || metroWindow.GlowBrush == null);
             }
         }
@@ -32,7 +32,7 @@ namespace MahApps.Metro.Behaviours
         {
             get
             {
-                var metroWindow = this.AssociatedObject as MetroWindow;
+                var metroWindow = AssociatedObject as MetroWindow;
                 return metroWindow != null && metroWindow.WindowTransitionsEnabled;
             }
         }
@@ -41,21 +41,21 @@ namespace MahApps.Metro.Behaviours
         {
             base.OnAttached();
 
-            this.AssociatedObject.SourceInitialized += (o, args) => {
+            AssociatedObject.SourceInitialized += (o, args) => {
                 // No glow effect if UseNoneWindowStyle is true or GlowBrush not set.
-                if (this.IsGlowDisabled)
+                if (IsGlowDisabled)
                 {
                     return;
                 }
-                handle = new WindowInteropHelper(this.AssociatedObject).Handle;
+                handle = new WindowInteropHelper(AssociatedObject).Handle;
                 var hwndSource = HwndSource.FromHwnd(handle);
                 if (hwndSource != null)
                 {
                     hwndSource.AddHook(AssociatedObjectWindowProc);
                 }
             };
-            this.AssociatedObject.Loaded += AssociatedObjectOnLoaded;
-            this.AssociatedObject.Unloaded += AssociatedObjectUnloaded;
+            AssociatedObject.Loaded += AssociatedObjectOnLoaded;
+            AssociatedObject.Unloaded += AssociatedObjectUnloaded;
         }
 
         void AssociatedObjectStateChanged(object sender, EventArgs e)
@@ -66,7 +66,7 @@ namespace MahApps.Metro.Behaviours
             }
             if(AssociatedObject.WindowState != WindowState.Minimized)
             {
-                var metroWindow = this.AssociatedObject as MetroWindow;
+                var metroWindow = AssociatedObject as MetroWindow;
                 var ignoreTaskBar = metroWindow != null && metroWindow.IgnoreTaskbarOnMaximize;
                 if (makeGlowVisibleTimer != null && SystemParameters.MinimizeAnimation && !ignoreTaskBar)
                 {
@@ -123,13 +123,13 @@ namespace MahApps.Metro.Behaviours
         private void AssociatedObjectOnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             // No glow effect if UseNoneWindowStyle is true or GlowBrush not set.
-            if (this.IsGlowDisabled)
+            if (IsGlowDisabled)
             {
                 return;
             }
 
-            this.AssociatedObject.StateChanged -= AssociatedObjectStateChanged;
-            this.AssociatedObject.StateChanged += AssociatedObjectStateChanged;
+            AssociatedObject.StateChanged -= AssociatedObjectStateChanged;
+            AssociatedObject.StateChanged += AssociatedObjectStateChanged;
 
             if (makeGlowVisibleTimer == null)
             {
@@ -137,31 +137,31 @@ namespace MahApps.Metro.Behaviours
                 makeGlowVisibleTimer.Tick += makeGlowVisibleTimer_Tick;
             }
 
-            this.left = new GlowWindow(this.AssociatedObject, GlowDirection.Left);
-            this.right = new GlowWindow(this.AssociatedObject, GlowDirection.Right);
-            this.top = new GlowWindow(this.AssociatedObject, GlowDirection.Top);
-            this.bottom = new GlowWindow(this.AssociatedObject, GlowDirection.Bottom);
+            left = new GlowWindow(AssociatedObject, GlowDirection.Left);
+            right = new GlowWindow(AssociatedObject, GlowDirection.Right);
+            top = new GlowWindow(AssociatedObject, GlowDirection.Top);
+            bottom = new GlowWindow(AssociatedObject, GlowDirection.Bottom);
 
-            this.Show();
-            this.Update();
+            Show();
+            Update();
 
-            if (!this.IsWindowTransitionsEnabled)
+            if (!IsWindowTransitionsEnabled)
             {
                 // no storyboard so set opacity to 1
-                this.AssociatedObject.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() => this.SetOpacityTo(1)));
+                AssociatedObject.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() => SetOpacityTo(1)));
             }
             else
             {
                 // start the opacity storyboard 0->1
-                this.StartOpacityStoryboard();
+                StartOpacityStoryboard();
                 // hide the glows if window get invisible state
-                this.AssociatedObject.IsVisibleChanged += this.AssociatedObjectIsVisibleChanged;
+                AssociatedObject.IsVisibleChanged += AssociatedObjectIsVisibleChanged;
                 // closing always handled
-                this.AssociatedObject.Closing += (o, args) =>
+                AssociatedObject.Closing += (o, args) =>
                 {
                     if (!args.Cancel)
                     {
-                        this.AssociatedObject.IsVisibleChanged -= this.AssociatedObjectIsVisibleChanged;
+                        AssociatedObject.IsVisibleChanged -= AssociatedObjectIsVisibleChanged;
                     }
                 };
             }
@@ -179,13 +179,13 @@ namespace MahApps.Metro.Behaviours
                     var wp = (WINDOWPOS)Marshal.PtrToStructure(lParam, typeof(WINDOWPOS));
                     if (!wp.Equals(_previousWP))
                     {
-                        this.UpdateCore();
+                        UpdateCore();
                     }
                     _previousWP = wp;
                     break;
                 case WM.SIZE:
                 case WM.SIZING:
-                    this.UpdateCore();
+                    UpdateCore();
                     break;
             }
             return IntPtr.Zero;
@@ -193,14 +193,14 @@ namespace MahApps.Metro.Behaviours
 
         private void AssociatedObjectIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!this.AssociatedObject.IsVisible)
+            if (!AssociatedObject.IsVisible)
             {
                 // the associated owner got invisible so set opacity to 0 to start the storyboard by 0 for the next visible state
-                this.SetOpacityTo(0);
+                SetOpacityTo(0);
             }
             else
             {
-                this.StartOpacityStoryboard();
+                StartOpacityStoryboard();
             }
         }
 
@@ -243,10 +243,10 @@ namespace MahApps.Metro.Behaviours
         /// </summary>
         private void StartOpacityStoryboard()
         {
-            if (left != null && this.left.OpacityStoryboard != null) left.BeginStoryboard(this.left.OpacityStoryboard);
-            if (right != null && this.right.OpacityStoryboard != null) right.BeginStoryboard(this.right.OpacityStoryboard);
-            if (top != null && this.top.OpacityStoryboard != null) top.BeginStoryboard(this.top.OpacityStoryboard);
-            if (bottom != null && this.bottom.OpacityStoryboard != null) bottom.BeginStoryboard(this.bottom.OpacityStoryboard);
+            if (left != null && left.OpacityStoryboard != null) left.BeginStoryboard(left.OpacityStoryboard);
+            if (right != null && right.OpacityStoryboard != null) right.BeginStoryboard(right.OpacityStoryboard);
+            if (top != null && top.OpacityStoryboard != null) top.BeginStoryboard(top.OpacityStoryboard);
+            if (bottom != null && bottom.OpacityStoryboard != null) bottom.BeginStoryboard(bottom.OpacityStoryboard);
         }
 
         /// <summary>

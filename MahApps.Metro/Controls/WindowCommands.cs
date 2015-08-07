@@ -19,8 +19,8 @@ namespace MahApps.Metro.Controls
         /// </summary>
         public bool ShowSeparators
         {
-            get { return (bool)this.GetValue(ShowSeparatorsProperty); }
-            set { this.SetValue(ShowSeparatorsProperty, value); }
+            get { return (bool)GetValue(ShowSeparatorsProperty); }
+            set { SetValue(ShowSeparatorsProperty, value); }
         }
 
         static WindowCommands()
@@ -30,16 +30,16 @@ namespace MahApps.Metro.Controls
 
         public WindowCommands()
         {
-            this.Loaded += WindowCommands_Loaded;
+            Loaded += WindowCommands_Loaded;
         }
 
         private void WindowCommands_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Loaded -= WindowCommands_Loaded;
-            var parentWindow = this.ParentWindow;
+            Loaded -= WindowCommands_Loaded;
+            var parentWindow = ParentWindow;
             if (null == parentWindow)
             {
-                this.ParentWindow = this.TryFindParent<Window>();
+                ParentWindow = this.TryFindParent<Window>();
             }
         }
 
@@ -55,7 +55,7 @@ namespace MahApps.Metro.Controls
                     return;
                 }
                 _parentWindow = value;
-                this.RaisePropertyChanged("ParentWindow");
+                RaisePropertyChanged("ParentWindow");
             }
         }
 

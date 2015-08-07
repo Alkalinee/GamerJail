@@ -25,6 +25,8 @@ namespace GamerJail.Installer.ViewManagement
                     {typeof (Step1), typeof (Page2)},
                     {typeof (Step2), typeof (Page3)},
                     {typeof (Step3), typeof (Page4)},
+                    {typeof (Installation), typeof (Page5)},
+                    {typeof (Finished), typeof (Page6)}
                 });
         }
 

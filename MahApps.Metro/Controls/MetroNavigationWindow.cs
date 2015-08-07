@@ -20,8 +20,8 @@ namespace MahApps.Metro.Controls
         {
             InitializeComponent();
 
-            this.Loaded += MetroNavigationWindow_Loaded;
-            this.Closing += MetroNavigationWindow_Closing;
+            Loaded += MetroNavigationWindow_Loaded;
+            Closing += MetroNavigationWindow_Closing;
         }
 
         void MetroNavigationWindow_Loaded(object sender, RoutedEventArgs e)
@@ -101,8 +101,8 @@ namespace MahApps.Metro.Controls
             PART_ForwardButton.Click -= PART_ForwardButton_Click;
             PART_BackButton.Click -= PART_BackButton_Click;
 
-            this.Loaded -= MetroNavigationWindow_Loaded;
-            this.Closing -= MetroNavigationWindow_Closing;
+            Loaded -= MetroNavigationWindow_Loaded;
+            Closing -= MetroNavigationWindow_Closing;
         }
 
         [DebuggerNonUserCode]

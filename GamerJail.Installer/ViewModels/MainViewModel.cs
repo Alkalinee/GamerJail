@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using GamerJail.Installer.Model;
@@ -18,7 +20,8 @@ namespace GamerJail.Installer.ViewModels
         private RelayCommand _goForwardCommand;
         private string _animation = "MoveForwardState";
         private readonly Setup _setup;
-        private bool _isFinalStep;
+        private bool _canCancel = true;
+        private CurrentViewMode _currentViewMode;
 
         public MainViewModel()
         {
@@ -56,16 +59,22 @@ namespace GamerJail.Installer.ViewModels
             set { SetProperty(value, ref _canGoForward); }
         }
 
+        public bool CanCancel
+        {
+            get { return _canCancel; }
+            set { SetProperty(value, ref _canCancel); }
+        }
+
         public string Animation
         {
             get { return _animation; }
             set { SetProperty(value, ref _animation); }
         }
 
-        public bool IsFinalStep
+        public CurrentViewMode CurrentViewMode
         {
-            get { return _isFinalStep; }
-            set { SetProperty(value, ref _isFinalStep); }
+            get { return _currentViewMode; }
+            set { SetProperty(value, ref _currentViewMode); }
         }
 
         public RelayCommand GoBackCommand
@@ -86,13 +95,24 @@ namespace GamerJail.Installer.ViewModels
         {
             get
             {
-                return _goForwardCommand ?? (_goForwardCommand = new RelayCommand(parameter =>
+                return _goForwardCommand ?? (_goForwardCommand = new RelayCommand(async parameter =>
                 {
                     Animation = "MoveForwardState";
-                    if (IsFinalStep)
+                    if (CurrentViewMode == CurrentViewMode.LastStep)
                     {
-                        _setup.Install();
-                        MessageBox.Show("Installiert!");
+                        CurrentView = new Installation(_setup);
+                        CanGoBack = false;
+                        CanGoForward = false;
+                        CanCancel = false;
+                        await _setup.Begin();
+                        CurrentViewMode = CurrentViewMode.Finished;
+                        CanGoForward = true;
+                        CurrentView = new Finished(_setup);
+                        return;
+                    }
+                    if (CurrentViewMode == CurrentViewMode.Finished)
+                    {
+                        Process.Start(Path.Combine(_setup.InstallationPath, "GamerJail.exe"), "/firstStart");
                         Application.Current.Shutdown();
                         return;
                     }
@@ -106,7 +126,15 @@ namespace GamerJail.Installer.ViewModels
         private void RefreshCanGoForward()
         {
             CanGoForward = CurrentView.CanGoForward;
-            IsFinalStep = _views.IndexOf(CurrentView) == _views.Count - 1;
+            if (_views.IndexOf(CurrentView) == _views.Count - 1)
+                CurrentViewMode = CurrentViewMode.LastStep;
         }
+    }
+
+    public enum CurrentViewMode
+    {
+        Configuration,
+        LastStep,
+        Finished
     }
 }

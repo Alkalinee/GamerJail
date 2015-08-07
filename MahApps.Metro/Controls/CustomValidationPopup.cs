@@ -21,91 +21,91 @@ namespace MahApps.Metro.Controls
 
         public CustomValidationPopup()
         {
-            this.Loaded += this.CustomValidationPopup_Loaded;
-            this.Opened += this.CustomValidationPopup_Opened;
+            Loaded += CustomValidationPopup_Loaded;
+            Opened += CustomValidationPopup_Opened;
         }
 
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            this.IsOpen = false;
+            IsOpen = false;
         }
 
         private void CustomValidationPopup_Loaded(object sender, RoutedEventArgs e)
         {
-            var target = this.PlacementTarget as FrameworkElement;
+            var target = PlacementTarget as FrameworkElement;
             if (target == null)
             {
                 return;
             }
 
-            this.hostWindow = Window.GetWindow(target);
-            if (this.hostWindow == null)
+            hostWindow = Window.GetWindow(target);
+            if (hostWindow == null)
             {
                 return;
             }
 
-            this.hostWindow.LocationChanged -= this.hostWindow_SizeOrLocationChanged;
-            this.hostWindow.LocationChanged += this.hostWindow_SizeOrLocationChanged;
-            this.hostWindow.SizeChanged -= this.hostWindow_SizeOrLocationChanged;
-            this.hostWindow.SizeChanged += this.hostWindow_SizeOrLocationChanged;
-            target.SizeChanged -= this.hostWindow_SizeOrLocationChanged;
-            target.SizeChanged += this.hostWindow_SizeOrLocationChanged;
-            this.hostWindow.StateChanged -= this.hostWindow_StateChanged;
-            this.hostWindow.StateChanged += this.hostWindow_StateChanged;
-            this.hostWindow.Activated -= this.hostWindow_Activated;
-            this.hostWindow.Activated += this.hostWindow_Activated;
-            this.hostWindow.Deactivated -= this.hostWindow_Deactivated;
-            this.hostWindow.Deactivated += this.hostWindow_Deactivated;
+            hostWindow.LocationChanged -= hostWindow_SizeOrLocationChanged;
+            hostWindow.LocationChanged += hostWindow_SizeOrLocationChanged;
+            hostWindow.SizeChanged -= hostWindow_SizeOrLocationChanged;
+            hostWindow.SizeChanged += hostWindow_SizeOrLocationChanged;
+            target.SizeChanged -= hostWindow_SizeOrLocationChanged;
+            target.SizeChanged += hostWindow_SizeOrLocationChanged;
+            hostWindow.StateChanged -= hostWindow_StateChanged;
+            hostWindow.StateChanged += hostWindow_StateChanged;
+            hostWindow.Activated -= hostWindow_Activated;
+            hostWindow.Activated += hostWindow_Activated;
+            hostWindow.Deactivated -= hostWindow_Deactivated;
+            hostWindow.Deactivated += hostWindow_Deactivated;
 
-            this.Unloaded -= this.CustomValidationPopup_Unloaded;
-            this.Unloaded += this.CustomValidationPopup_Unloaded;
+            Unloaded -= CustomValidationPopup_Unloaded;
+            Unloaded += CustomValidationPopup_Unloaded;
         }
 
         private void CustomValidationPopup_Opened(object sender, EventArgs e)
         {
-            this.SetTopmostState(true);
+            SetTopmostState(true);
         }
 
         private void hostWindow_Activated(object sender, EventArgs e)
         {
-            this.SetTopmostState(true);
+            SetTopmostState(true);
         }
 
         private void hostWindow_Deactivated(object sender, EventArgs e)
         {
-            this.SetTopmostState(false);
+            SetTopmostState(false);
         }
 
         private void CustomValidationPopup_Unloaded(object sender, RoutedEventArgs e)
         {
-            var target = this.PlacementTarget as FrameworkElement;
+            var target = PlacementTarget as FrameworkElement;
             if (target != null)
             {
-                target.SizeChanged -= this.hostWindow_SizeOrLocationChanged;
+                target.SizeChanged -= hostWindow_SizeOrLocationChanged;
             }
-            if (this.hostWindow != null)
+            if (hostWindow != null)
             {
-                this.hostWindow.LocationChanged -= this.hostWindow_SizeOrLocationChanged;
-                this.hostWindow.SizeChanged -= this.hostWindow_SizeOrLocationChanged;
-                this.hostWindow.StateChanged -= this.hostWindow_StateChanged;
-                this.hostWindow.Activated -= this.hostWindow_Activated;
-                this.hostWindow.Deactivated -= this.hostWindow_Deactivated;
+                hostWindow.LocationChanged -= hostWindow_SizeOrLocationChanged;
+                hostWindow.SizeChanged -= hostWindow_SizeOrLocationChanged;
+                hostWindow.StateChanged -= hostWindow_StateChanged;
+                hostWindow.Activated -= hostWindow_Activated;
+                hostWindow.Deactivated -= hostWindow_Deactivated;
             }
-            this.Unloaded -= this.CustomValidationPopup_Unloaded;
-            this.Opened -= this.CustomValidationPopup_Opened;
-            this.hostWindow = null;
+            Unloaded -= CustomValidationPopup_Unloaded;
+            Opened -= CustomValidationPopup_Opened;
+            hostWindow = null;
         }
 
         private void hostWindow_StateChanged(object sender, EventArgs e)
         {
-            if (this.hostWindow != null && this.hostWindow.WindowState != WindowState.Minimized)
+            if (hostWindow != null && hostWindow.WindowState != WindowState.Minimized)
             {
-                var target = this.PlacementTarget as FrameworkElement;
+                var target = PlacementTarget as FrameworkElement;
                 var holder = target != null ? target.DataContext as AdornedElementPlaceholder : null;
                 if (holder != null && holder.AdornedElement != null)
                 {
-                    this.PopupAnimation = PopupAnimation.None;
-                    this.IsOpen = false;
+                    PopupAnimation = PopupAnimation.None;
+                    IsOpen = false;
                     var errorTemplate = holder.AdornedElement.GetValue(Validation.ErrorTemplateProperty);
                     holder.AdornedElement.SetValue(Validation.ErrorTemplateProperty, null);
                     holder.AdornedElement.SetValue(Validation.ErrorTemplateProperty, errorTemplate);
@@ -115,10 +115,10 @@ namespace MahApps.Metro.Controls
 
         private void hostWindow_SizeOrLocationChanged(object sender, EventArgs e)
         {
-            var offset = this.HorizontalOffset;
+            var offset = HorizontalOffset;
             // "bump" the offset to cause the popup to reposition itself on its own
-            this.HorizontalOffset = offset + 1;
-            this.HorizontalOffset = offset;
+            HorizontalOffset = offset + 1;
+            HorizontalOffset = offset;
         }
 
         private bool? appliedTopMost;
@@ -130,17 +130,17 @@ namespace MahApps.Metro.Controls
         private void SetTopmostState(bool isTop)
         {
             // Don’t apply state if it’s the same as incoming state
-            if (this.appliedTopMost.HasValue && this.appliedTopMost == isTop)
+            if (appliedTopMost.HasValue && appliedTopMost == isTop)
             {
                 return;
             }
 
-            if (this.Child == null)
+            if (Child == null)
             {
                 return;
             }
 
-            var hwndSource = (PresentationSource.FromVisual(this.Child)) as HwndSource;
+            var hwndSource = (PresentationSource.FromVisual(Child)) as HwndSource;
 
             if (hwndSource == null)
             {
@@ -174,7 +174,7 @@ namespace MahApps.Metro.Controls
                 UnsafeNativeMethods.SetWindowPos(hwnd, HWND_NOTOPMOST, left, top, width, height, Constants.TOPMOST_FLAGS);
             }
 
-            this.appliedTopMost = isTop;
+            appliedTopMost = isTop;
         }
     }
 }

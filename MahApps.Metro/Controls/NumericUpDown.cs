@@ -480,7 +480,7 @@ namespace MahApps.Metro.Controls
                 throw new InvalidOperationException(string.Format("You have missed to specify {0}, {1} or {2} in your template", ElementNumericUp, ElementNumericDown, ElementTextBox));
             }
 
-            this.ToggleReadOnlyMode(this.IsReadOnly);
+            ToggleReadOnlyMode(IsReadOnly);
 
             _repeatUp.Click += (o, e) => ChangeValueWithSpeedUp(true);
             _repeatDown.Click += (o, e) => ChangeValueWithSpeedUp(false);
@@ -722,7 +722,7 @@ namespace MahApps.Metro.Controls
                     }
                     if (oldValue != newValue)
                     {
-                        this.RaiseEvent(new RoutedPropertyChangedEventArgs<double?>(oldValue, newValue, ValueChangedEvent));
+                        RaiseEvent(new RoutedPropertyChangedEventArgs<double?>(oldValue, newValue, ValueChangedEvent));
                     }
                     return;
                 }
@@ -774,7 +774,7 @@ namespace MahApps.Metro.Controls
 
             if (oldValue != newValue)
             {
-                this.RaiseEvent(new RoutedPropertyChangedEventArgs<double?>(oldValue, newValue, ValueChangedEvent));
+                RaiseEvent(new RoutedPropertyChangedEventArgs<double?>(oldValue, newValue, ValueChangedEvent));
             }
         }
 

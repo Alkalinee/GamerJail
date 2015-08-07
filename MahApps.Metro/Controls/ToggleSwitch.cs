@@ -300,7 +300,7 @@ namespace MahApps.Metro.Controls
 
                 _toggleButton.IsEnabledChanged -= IsEnabledHandler;
 
-                _toggleButton.PreviewMouseUp -= this.ToggleButtonPreviewMouseUp;
+                _toggleButton.PreviewMouseUp -= ToggleButtonPreviewMouseUp;
             }
             _toggleButton = GetTemplateChild(SwitchPart) as ToggleButton;
             if (_toggleButton != null)
@@ -314,7 +314,7 @@ namespace MahApps.Metro.Controls
 
                 _toggleButton.IsEnabledChanged += IsEnabledHandler;
 
-                _toggleButton.PreviewMouseUp += this.ToggleButtonPreviewMouseUp;
+                _toggleButton.PreviewMouseUp += ToggleButtonPreviewMouseUp;
             }
             ChangeVisualState(false);
         }
@@ -331,8 +331,8 @@ namespace MahApps.Metro.Controls
 
         private void CheckedHandler(object sender, RoutedEventArgs e)
         {
-            var command = this.CheckedCommand;
-            var commandParameter = this.CheckedCommandParameter ?? this;
+            var command = CheckedCommand;
+            var commandParameter = CheckedCommandParameter ?? this;
             if (command != null && command.CanExecute(commandParameter))
             {
                 command.Execute(commandParameter);
@@ -343,8 +343,8 @@ namespace MahApps.Metro.Controls
 
         private void UncheckedHandler(object sender, RoutedEventArgs e)
         {
-            var command = this.UnCheckedCommand;
-            var commandParameter = this.UnCheckedCommandParameter ?? this;
+            var command = UnCheckedCommand;
+            var commandParameter = UnCheckedCommandParameter ?? this;
             if (command != null && command.CanExecute(commandParameter))
             {
                 command.Execute(commandParameter);

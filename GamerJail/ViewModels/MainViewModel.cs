@@ -1,33 +1,57 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Linq;
 using System.Windows;
-using System.Windows.Threading;
 using GamerJail.Logic;
 using GamerJail.Shared;
+using GamerJail.ViewManagement;
+using GamerJail.ViewModels.Pages;
 using GamerJail.Views;
 
 namespace GamerJail.ViewModels
 {
     class MainViewModel : PropertyChangedBase
     {
-        private readonly DispatcherTimer _dispatcherTimer;
         private RelayCommand _openConfigurationCommand;
+        private IView _currentView;
+        private bool _canGoBack;
+        private RelayCommand _goBackCommand;
+        private bool _isConfigurationOpen;
+        private RelayCommand _openStatisticCommand;
 
         public MainViewModel()
         {
-#if DEBUG
-            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
-                return;
-#endif
             ServiceManager = ServiceManager.Current;
-            _dispatcherTimer = new DispatcherTimer {Interval = TimeSpan.FromSeconds(1)};
-            _dispatcherTimer.Tick += _dispatcherTimer_Tick;
-            _dispatcherTimer.Start();
-            Application.Current.Windows.Cast<Window>().First().Closed += (sender, args) => _dispatcherTimer.Stop();
+            CurrentView = new HomeViewModel(ServiceManager);
         }
 
-        public ServiceManager ServiceManager { get; }
+        public ServiceManager ServiceManager { get; set; }
+
+        public IView CurrentView
+        {
+            get { return _currentView; }
+            set
+            {
+                var oldView = _currentView;
+                if (SetProperty(value, ref _currentView))
+                {
+                    oldView?.Close();
+                    if (value != null)
+                        value.CloseRequest += ViewCloseRequest;
+                    if (oldView != null)
+                        oldView.CloseRequest -= ViewCloseRequest;
+                }
+            }
+        }
+
+        public bool CanGoBack
+        {
+            get { return _canGoBack; }
+            set { SetProperty(value, ref _canGoBack); }
+        }
+
+        private void ViewCloseRequest(object sender, EventArgs eventArgs)
+        {
+            CurrentView = new HomeViewModel(ServiceManager);
+        }
 
         public RelayCommand OpenConfigurationCommand
         {
@@ -39,15 +63,42 @@ namespace GamerJail.ViewModels
                     if (passwordWindow.ShowDialog() != true)
                         return;
 
-                    var window = new ConfigurationWindow(ServiceManager) {Owner = Application.Current.MainWindow};
-                    window.ShowDialog();
+                    CurrentView = new ConfigurationViewModel(ServiceManager);
+                    CanGoBack = true;
+                    IsConfigurationOpen = true;
                 }));
             }
         }
 
-        private void _dispatcherTimer_Tick(object sender, EventArgs e)
+        public RelayCommand OpenStatisticCommand
         {
-            ServiceManager.ActionManager.CheckTime();
+            get
+            {
+                return _openStatisticCommand ?? (_openStatisticCommand = new RelayCommand(parameter =>
+                {
+                    CanGoBack = true;
+                    CurrentView = new StatisticViewModel(ServiceManager);
+                }));
+            }
+        }
+
+        public RelayCommand GoBackCommand
+        {
+            get
+            {
+                return _goBackCommand ?? (_goBackCommand = new RelayCommand(parameter =>
+                {
+                    CurrentView = new HomeViewModel(ServiceManager);
+                    CanGoBack = false;
+                    IsConfigurationOpen = false;
+                }));
+            }
+        }
+
+        public bool IsConfigurationOpen
+        {
+            get { return _isConfigurationOpen; }
+            set { SetProperty(value, ref _isConfigurationOpen); }
         }
     }
 }

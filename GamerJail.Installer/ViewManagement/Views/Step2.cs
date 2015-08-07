@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using GamerJail.Installer.Model;
 
 namespace GamerJail.Installer.ViewManagement.Views
@@ -26,7 +25,6 @@ namespace GamerJail.Installer.ViewManagement.Views
                     _lowerValue = value;
                     var timeSpan = TimeSpan.FromMinutes(value * 30 + 4 * 60);
                     Setup.Config.TimeSpan.FromTime = timeSpan.TotalHours - (timeSpan.TotalHours > 24 ? 24 : 0);
-                    Debug.Print("FromTime: " + Setup.Config.TimeSpan.FromTime);
                     CheckIfEverythingIsAwesome();
                 }
             }
@@ -42,7 +40,6 @@ namespace GamerJail.Installer.ViewManagement.Views
                     _upperValue = value;
                     var timeSpan = TimeSpan.FromMinutes(value * 30 + 4 * 60);
                     Setup.Config.TimeSpan.ToTime = timeSpan.TotalHours - (timeSpan.TotalHours > 24 ? 24 : 0);
-                    Debug.Print("ToTime: " + Setup.Config.TimeSpan.ToTime);
                     CheckIfEverythingIsAwesome();
                 }
             }

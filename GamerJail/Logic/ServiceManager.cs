@@ -7,9 +7,9 @@ using System.Text;
 using System.Web.Script.Serialization;
 using GamerJail.Data;
 using GamerJail.Native;
+using GamerJail.Shared;
 using GamerJail.Utilities;
 using Hardcodet.Wpf.TaskbarNotification;
-using GamerJail.Shared;
 
 namespace GamerJail.Logic
 {
@@ -75,7 +75,6 @@ namespace GamerJail.Logic
                 TimeSpan.FromMilliseconds(
                     DatabaseManager.PlayTimes.Where(x => dateTimeHelper.IsToday(x.Timestamp))
                         .Sum(x => x.Duration.TotalMilliseconds)).Add(Service.TimePlayed);
-            Debug.Print("refresh");
         }
 
         private void ActionManager_StateChanged(object sender, EventArgs e)

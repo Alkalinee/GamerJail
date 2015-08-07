@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MahApps.Metro.NET45", "MahA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamerJail.Resources", "GamerJail.Resources\GamerJail.Resources.csproj", "{3D7230A5-9D63-4276-BF24-0A8859E90631}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieControls", "PieControls\PieControls.csproj", "{CEC6E596-D667-4068-BF48-188825F52C82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3D7230A5-9D63-4276-BF24-0A8859E90631}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D7230A5-9D63-4276-BF24-0A8859E90631}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D7230A5-9D63-4276-BF24-0A8859E90631}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEC6E596-D667-4068-BF48-188825F52C82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEC6E596-D667-4068-BF48-188825F52C82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEC6E596-D667-4068-BF48-188825F52C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEC6E596-D667-4068-BF48-188825F52C82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

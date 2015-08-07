@@ -44,7 +44,7 @@ namespace MahApps.Metro.Converters
         {
             if (value is SolidColorBrush)
             {
-                var idealForegroundColor = this.IdealTextColor(((SolidColorBrush)value).Color);
+                var idealForegroundColor = IdealTextColor(((SolidColorBrush)value).Color);
                 var foreGroundBrush = new SolidColorBrush(idealForegroundColor);
                 foreGroundBrush.Freeze();
                 return foreGroundBrush;

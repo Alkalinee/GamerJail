@@ -258,20 +258,20 @@ namespace MahApps.Metro.Controls
             var source = e.OriginalSource as DependencyObject;
             if (source != null)
             {
-                var item = ContainerFromElement(this._listBox, source) as ListBoxItem;
+                var item = ContainerFromElement(_listBox, source) as ListBoxItem;
                 if (item != null)
                 {
-                    this.IsExpanded = false;
+                    IsExpanded = false;
                 }
             }
         }
 
         void PopupClosed(object sender, EventArgs e)
         {
-            this.ReleaseMouseCapture();
-            if (this._expander != null)
+            ReleaseMouseCapture();
+            if (_expander != null)
             {
-                this._expander.Focus();
+                _expander.Focus();
             }
         }
 
