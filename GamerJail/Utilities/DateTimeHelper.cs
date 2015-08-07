@@ -15,7 +15,10 @@ namespace GamerJail.Utilities
         public DateTimeHelper()
         {
             _now = DateTime.Now;
-            _todayStartDate = new DateTime(_now.Year, _now.Month, _now.Day, 4, 0, 0);
+            _todayStartDate = _now.Hour < 4
+                ? new DateTime(_now.Year, _now.Month, _now.Day, 4, 0, 0).AddDays(-1)
+                : new DateTime(_now.Year, _now.Month, _now.Day, 4, 0, 0);
+
             _todayEndDate = _todayStartDate.AddHours(24);
 
             _weekStartDate = _now.StartOfWeek(DayOfWeek.Monday).AddHours(4);

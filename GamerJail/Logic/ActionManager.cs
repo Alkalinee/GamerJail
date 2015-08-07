@@ -12,7 +12,7 @@ namespace GamerJail.Logic
         private bool _isEnabled;
         private readonly DispatcherTimer _timer;
         private TimeSpan _timeLeft;
-        private State _currentState = State.StopDaShitImmediately;
+        private State _currentState = State.EverythingIsAwesome;
 
         public ActionManager(ServiceManager serviceManager)
         {
@@ -116,6 +116,9 @@ namespace GamerJail.Logic
                     TimeLeft = time;
             }
 
+            if (_serviceManager.Service.CurrentProgram == null) //No actions when no game is running
+                return;
+
             if (TimeLeft < TimeSpan.FromMinutes(30) && TimeLeft > TimeSpan.FromMinutes(5))
             {
                 CurrentState = State.ComingToEnd;
@@ -124,7 +127,7 @@ namespace GamerJail.Logic
             {
                 CurrentState = State.Critical;
             }
-            else if (TimeLeft < TimeSpan.Zero)
+            else if (TimeLeft < TimeSpan.Zero || TimeLeft == TimeSpan.Zero)
             {
                 CurrentState = State.StopDaShitImmediately;
 

@@ -41,9 +41,9 @@ namespace GamerJail.Logic
             Service.Enable();
 
             ActionManager = new ActionManager(this);
-            ActionManager.CheckTime();
             ActionManager.StateChanged += ActionManager_StateChanged;
             ActionManager.NothingIsAwesome += ActionManager_NothingIsAwesome;
+            ActionManager.CheckTime();
 
             Service.Started += (sender, args) => ActionManager.IsEnabled = true;
             Service.Stopped += (sender, args) => ActionManager.IsEnabled = false;
@@ -112,6 +112,9 @@ namespace GamerJail.Logic
 
         private void ActionManager_NothingIsAwesome(object sender, EventArgs e)
         {
+            if (Service.CurrentProgram == null) //No actions if game isn't running
+                return;
+
             switch (Config.Actions)
             {
                 case Actions.Nothing:
