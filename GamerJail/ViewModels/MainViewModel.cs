@@ -2,6 +2,7 @@
 using System.Windows;
 using GamerJail.Logic;
 using GamerJail.Shared;
+using GamerJail.Utilities;
 using GamerJail.ViewManagement;
 using GamerJail.ViewModels.Pages;
 using GamerJail.Views;
@@ -23,6 +24,7 @@ namespace GamerJail.ViewModels
         }
 
         public ServiceManager ServiceManager { get; set; }
+
 
         public IView CurrentView
         {

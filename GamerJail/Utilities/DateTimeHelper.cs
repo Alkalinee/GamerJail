@@ -20,10 +20,15 @@ namespace GamerJail.Utilities
                 : new DateTime(_now.Year, _now.Month, _now.Day, 4, 0, 0);
 
             _todayEndDate = _todayStartDate.AddHours(24);
+            NextDay = _todayEndDate;
 
             _weekStartDate = _now.StartOfWeek(DayOfWeek.Monday).AddHours(4);
             _weekEndDate = _weekStartDate.AddDays(7);
+            NextWeek = _weekEndDate;
         }
+
+        public DateTime NextWeek { get; }
+        public DateTime NextDay { get; }
 
         public bool IsToday(DateTime dateTime)
         {

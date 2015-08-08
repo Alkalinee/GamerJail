@@ -36,7 +36,7 @@
                                    HorizontalAlignment="Center"
                                    FontSize="26"
                                    Text="{Binding TimePlayed,
-                                                  StringFormat=hh\\:mm\\:ss}" />
+                                                  Converter={StaticResource TimeSpanToStringConverter}}" />
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -81,7 +81,7 @@
                                                 <TextBlock Grid.Column="2"
                                                            VerticalAlignment="Center"
                                                            Text="{Binding TimePlayed,
-                                                                          StringFormat=hh\\:mm\\:ss}" />
+                                                                          Converter={StaticResource TimeSpanToStringConverter}}" />
                                             </Grid>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>

@@ -31,8 +31,8 @@ namespace GamerJail.ViewModels.Pages
         {
             ServiceManager = serviceManager;
             GamingTimePerDay = serviceManager.Config.GamingTimePerDay;
-            LowerValue = (int) serviceManager.Config.TimeSpan.FromTime* 2;
-            UpperValue = (int)serviceManager.Config.TimeSpan.ToTime * 2;
+            LowerValue = (int) serviceManager.Config.TimeSpan.FromTime* 2 - 7;
+            UpperValue = (int) serviceManager.Config.TimeSpan.ToTime*2 - 7;
         }
 
         public event EventHandler ClearPasswords;
@@ -49,7 +49,7 @@ namespace GamerJail.ViewModels.Pages
                 {
                     _lowerValue = value;
                     var timeSpan = TimeSpan.FromMinutes(value*30 + 4*60);
-                    ServiceManager.Config.TimeSpan.FromTime = timeSpan.TotalHours - (timeSpan.TotalHours > 24 ? 24 : 0);
+                    ServiceManager.Config.TimeSpan.FromTime = timeSpan.TotalHours;
                     CheckIfEverythingIsAwesome();
                 }
             }
@@ -64,7 +64,7 @@ namespace GamerJail.ViewModels.Pages
                 {
                     _upperValue = value;
                     var timeSpan = TimeSpan.FromMinutes(value*30 + 4*60);
-                    ServiceManager.Config.TimeSpan.ToTime = timeSpan.TotalHours - (timeSpan.TotalHours > 24 ? 24 : 0);
+                    ServiceManager.Config.TimeSpan.ToTime = timeSpan.TotalHours;
                     CheckIfEverythingIsAwesome();
                 }
             }

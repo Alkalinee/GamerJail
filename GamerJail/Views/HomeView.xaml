@@ -11,59 +11,71 @@
     <UserControl.DataContext>
         <pages:HomeViewModel />
     </UserControl.DataContext>
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ServiceManager.Service.CurrentProgram}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <Image Width="28"
-                   Height="28"
-                   RenderOptions.BitmapScalingMode="HighQuality"
-                   Source="{Binding ServiceManager.Service.CurrentProgram.Icon}" />
-            <TextBlock Margin="10,0,0,0"
-                       VerticalAlignment="Center"
-                       FontSize="24"
-                       Foreground="#2c3e50"
-                       Text="{Binding ServiceManager.Service.CurrentProgram.Filename}" />
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ServiceManager.Service.CurrentProgram}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <Image Width="28"
+                       Height="28"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="{Binding ServiceManager.Service.CurrentProgram.Icon}" />
+                <TextBlock Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="24"
+                           Foreground="#2c3e50"
+                           Text="{Binding ServiceManager.Service.CurrentProgram.Filename}" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ServiceManager.ActionManager.CurrentState}" Value="EverythingIsAwesome">
+                                <Setter Property="Foreground" Value="#2c3e50" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ServiceManager.ActionManager.CurrentState}" Value="ComingToEnd">
+                                <Setter Property="Foreground" Value="#f39c12" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ServiceManager.ActionManager.CurrentState}" Value="Critical">
+                                <Setter Property="Foreground" Value="#c0392b" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ServiceManager.ActionManager.CurrentState}" Value="StopDaShitImmediately">
+                                <Setter Property="Foreground" Value="#c0392b" />
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames RepeatBehavior="Forever" Storyboard.TargetProperty="Opacity">
+                                                <LinearDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+                                                <LinearDoubleKeyFrame KeyTime="0:0:0.5" Value="0" />
+                                                <LinearDoubleKeyFrame KeyTime="0:0:1" Value="1" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock FontSize="42" Text="{Binding ServiceManager.ActionManager.TimeLeft, Converter={StaticResource TimeSpanToStringConverter}}" />
+                <TextBlock HorizontalAlignment="Center"
+                           FontSize="14"
+                           Text="{Binding ServiceManager.TimePlayedToday,
+                                          Converter={StaticResource TimeSpanToStringConverter}}" />
+            </StackPanel>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
-            <StackPanel.Resources>
-                <Style TargetType="TextBlock">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ServiceManager.ActionManager.CurrentState}" Value="EverythingIsAwesome">
-                            <Setter Property="Foreground" Value="#2c3e50" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ServiceManager.ActionManager.CurrentState}" Value="ComingToEnd">
-                            <Setter Property="Foreground" Value="#f39c12" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ServiceManager.ActionManager.CurrentState}" Value="Critical">
-                            <Setter Property="Foreground" Value="#c0392b" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ServiceManager.ActionManager.CurrentState}" Value="StopDaShitImmediately">
-                            <Setter Property="Foreground" Value="#c0392b" />
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames RepeatBehavior="Forever" Storyboard.TargetProperty="Opacity">
-                                            <LinearDoubleKeyFrame KeyTime="0:0:0" Value="1" />
-                                            <LinearDoubleKeyFrame KeyTime="0:0:0.5" Value="0" />
-                                            <LinearDoubleKeyFrame KeyTime="0:0:1" Value="1" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </DataTrigger.EnterActions>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Resources>
-            <TextBlock FontSize="42" Text="{Binding ServiceManager.ActionManager.TimeLeft, StringFormat=hh\\:mm\\:ss}" />
-            <TextBlock HorizontalAlignment="Center" Text="{Binding ServiceManager.TimePlayedToday, StringFormat=hh\\:mm\\:ss}" FontSize="14"/>
+        <StackPanel VerticalAlignment="Bottom" Margin="10">
+            <TextBlock>
+                <Run Text="Neues Kontingent: " /><Run FontWeight="Bold" Text="{Binding NewPlayTime, StringFormat={}{0:dd.MM.yyyy HH:mm},Mode=OneWay}" Foreground="#8e44ad"/>
+                <Run Text=" :: " />
+                <Run Text="Spielzeitraum: " /><Run FontWeight="Bold" Text="{Binding PlayTimeSpan,Mode=OneWay}" Foreground="#8e44ad"/>
+            </TextBlock>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </UserControl>

@@ -103,10 +103,14 @@ namespace GamerJail.Logic
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (_serviceManager.Config.TimeSpan.FromTime != 0 || _serviceManager.Config.TimeSpan.ToTime != 24)
+            // ReSharper disable CompareOfFloatsByEqualityOperator
+            if (_serviceManager.Config.TimeSpan.FromTime != 4 && _serviceManager.Config.TimeSpan.ToTime != 28)
+                // ReSharper restore CompareOfFloatsByEqualityOperator
             {
-                if (DateTime.Now < DateTime.Today.Date.AddHours(_serviceManager.Config.TimeSpan.FromTime) ||
-                    DateTime.Now > DateTimeHelper.GetToday().AddHours(_serviceManager.Config.TimeSpan.ToTime))
+                if (DateTime.Now < DateTimeHelper.GetToday().AddHours(_serviceManager.Config.TimeSpan.FromTime) ||
+                    DateTime.Now >
+                    DateTimeHelper.GetToday()
+                        .AddHours(_serviceManager.Config.TimeSpan.ToTime))
                 {
                     TimeLeft = TimeSpan.Zero;
                 }

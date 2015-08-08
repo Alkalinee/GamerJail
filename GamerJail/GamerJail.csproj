@@ -92,6 +92,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\TimeSpanToStringConverter.cs" />
     <Compile Include="Data\DatabaseManager.cs" />
     <Compile Include="Data\HistoryEntry.cs" />
     <Compile Include="Data\PlayTime.cs" />

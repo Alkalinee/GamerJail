@@ -77,7 +77,7 @@
                                                    VerticalAlignment="Center"
                                                    FontSize="14"
                                                    Text="{Binding TimePlayed,
-                                                                  StringFormat=hh\\:mm\\:ss}" />
+                                                                  Converter={StaticResource TimeSpanToStringConverter}}" />
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
