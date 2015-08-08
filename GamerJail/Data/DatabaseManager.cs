@@ -89,7 +89,19 @@ namespace GamerJail.Data
 
             var time = PlayTimes.OrderByDescending(x => x.Timestamp).FirstOrDefault();
             if (time?.Duration == TimeSpan.Zero)
-                PlayTimeFinished(time, GetLastSystemShutdown());
+            {
+                var lastShutdownTime = GetLastSystemShutdown();
+                if (time.Timestamp < lastShutdownTime) //Else we would go negative
+                {
+                    PlayTimeFinished(time, lastShutdownTime);
+                }
+                else
+                {
+                    using (var command = new SQLiteCommand($"DELETE FROM `PlayTimes` WHERE Guid='{time.Guid.ToString("D")}'", _connection)) //We delete the entry, there was an error
+                        command.ExecuteNonQuery();
+                    PlayTimes.Remove(time);
+                }
+            }
         }
 
         public PlayTime StartPlayTime(Program program)
@@ -121,7 +133,7 @@ namespace GamerJail.Data
 
         public void PlayTimeFinished(PlayTime playTime, DateTime time)
         {
-            var duration = TimeSpan.FromMilliseconds((time - playTime.Timestamp).TotalMilliseconds);
+            var duration = (time - playTime.Timestamp);
             playTime.Duration = duration;
             using (
                 var command =

@@ -13,13 +13,13 @@ namespace GamerJail.ViewModels.Pages
     {
         private readonly DispatcherTimer _dispatcherTimer;
 
-        public HomeViewModel(ServiceManager serviceManager)
+        public HomeViewModel()
         {
 #if DEBUG
             if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
                 return;
 #endif
-            ServiceManager = serviceManager;
+            ServiceManager = ServiceManager.Current;
             _dispatcherTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
             _dispatcherTimer.Tick += _dispatcherTimer_Tick;
             _dispatcherTimer.Start();

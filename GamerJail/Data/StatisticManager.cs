@@ -21,6 +21,8 @@ namespace GamerJail.Data
         };
         // ReSharper restore PossibleNullReferenceException
         private static readonly Random Random = new Random();
+        private static readonly Dictionary<Program, Color> CachedColors = new Dictionary<Program, Color>();
+        private static int _colorCounter = 0;
 
         public static Statistics GetStatistics(IList<PlayTime> playTimes, IList<Program> programs, TimePeriod timePeriod)
         {
@@ -54,7 +56,6 @@ namespace GamerJail.Data
             };
 
             var games = new List<GameStatistic>();
-            var counter = 0;
             foreach (var gameId in times.Select(x => x.Program).Distinct())
             {
                 var game = programs.FirstOrDefault(x => x.Guid == gameId);
@@ -66,16 +67,26 @@ namespace GamerJail.Data
                     Name = game.Name,
                     Icon = game.Icon,
                     Guid = game.Guid,
-                    ChartColor = counter > Colors.Length ? PickBrush() : Colors[counter],
+                    ChartColor = GetColor(game),
                     TimePlayed =
                         TimeSpan.FromMilliseconds(
                             times.Where(x => x.Program == game.Guid).Select(x => x.Duration.TotalMilliseconds).Sum())
                 });
-                counter++;
             }
 
             statistic.Games = games.OrderByDescending(x => x.TimePlayed).ToList();
             return statistic;
+        }
+
+        private static Color GetColor(Program program)
+        {
+            if (CachedColors.ContainsKey(program))
+                return CachedColors[program];
+
+            var color = _colorCounter > Colors.Length ? PickBrush() : Colors[_colorCounter];
+            _colorCounter++;
+            CachedColors.Add(program, color);
+            return color;
         }
 
         private static Color PickBrush()

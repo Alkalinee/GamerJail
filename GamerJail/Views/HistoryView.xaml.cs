@@ -1,11 +1,11 @@
 ﻿namespace GamerJail.Views
 {
     /// <summary>
-    /// Interaktionslogik für HomeView.xaml
+    /// Interaktionslogik für HistoryView.xaml
     /// </summary>
-    public partial class HomeView
+    public partial class HistoryView
     {
-        public HomeView()
+        public HistoryView()
         {
             InitializeComponent();
         }

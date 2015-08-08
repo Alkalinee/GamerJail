@@ -52,5 +52,12 @@ namespace GamerJail.Utilities
                 return now.AddDays(-1).Date;
             return DateTime.Today;
         }
+
+        public static DateTime GetDateTime(DateTime dateTime)
+        {
+            if (dateTime.Hour < 4)
+                return dateTime.AddDays(-1).Date;
+            return dateTime.Date;
+        }
     }
 }

@@ -22,17 +22,9 @@
                   ItemsSource="{Binding Source={extensions:Enumeration {x:Type data:TimePeriod}}}"
                   SelectedValue="{Binding SelectedPeriod}"
                   SelectedValuePath="Value" />
-        <controls:TransitioningContentControl Grid.Row="1" Content="{Binding CurrentStatistics}" Transition="Down">
-            <ContentControl.Resources>
-                <x:ArrayExtension x:Key="Brushes" Type="{x:Type Brush}">
-                    <SolidColorBrush Color="#9F15C3" />
-                    <SolidColorBrush Color="#FF8E01" />
-                    <SolidColorBrush Color="#339933" />
-                    <SolidColorBrush Color="#00AAFF" />
-                    <SolidColorBrush Color="#818183" />
-                    <SolidColorBrush Color="#000033" />
-                </x:ArrayExtension>
-            </ContentControl.Resources>
+        <controls:TransitioningContentControl Grid.Row="1"
+                                              Content="{Binding CurrentStatistics}"
+                                              Transition="Down">
             <ContentControl.ContentTemplate>
                 <DataTemplate DataType="{x:Type data:Statistics}">
                     <Grid>

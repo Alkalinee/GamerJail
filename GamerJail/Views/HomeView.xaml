@@ -8,6 +8,9 @@
              d:DesignHeight="460"
              d:DesignWidth="750"
              mc:Ignorable="d">
+    <UserControl.DataContext>
+        <pages:HomeViewModel />
+    </UserControl.DataContext>
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
             <StackPanel.Style>
@@ -19,13 +22,13 @@
                     </Style.Triggers>
                 </Style>
             </StackPanel.Style>
-            <Image Width="32"
-                   Height="32"
+            <Image Width="28"
+                   Height="28"
                    RenderOptions.BitmapScalingMode="HighQuality"
                    Source="{Binding ServiceManager.Service.CurrentProgram.Icon}" />
             <TextBlock Margin="10,0,0,0"
                        VerticalAlignment="Center"
-                       FontSize="26"
+                       FontSize="24"
                        Foreground="#2c3e50"
                        Text="{Binding ServiceManager.Service.CurrentProgram.Filename}" />
         </StackPanel>
@@ -59,8 +62,8 @@
                     </Style.Triggers>
                 </Style>
             </StackPanel.Resources>
-            <TextBlock FontSize="32" Text="{Binding ServiceManager.ActionManager.TimeLeft, StringFormat=hh\\:mm\\:ss}" />
-            <TextBlock HorizontalAlignment="Center" Text="{Binding ServiceManager.TimePlayedToday, StringFormat=hh\\:mm\\:ss}" />
+            <TextBlock FontSize="42" Text="{Binding ServiceManager.ActionManager.TimeLeft, StringFormat=hh\\:mm\\:ss}" />
+            <TextBlock HorizontalAlignment="Center" Text="{Binding ServiceManager.TimePlayedToday, StringFormat=hh\\:mm\\:ss}" FontSize="14"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

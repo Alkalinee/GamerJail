@@ -47,6 +47,11 @@ namespace GamerJail
                     "GamerJail wurde gestartet und ist nun aktiv.", BalloonIcon.Info);
         }
 
+        ~App()
+        {
+            Icon.Dispose();
+        }
+
         private void Tbi_TrayLeftMouseDown(object sender, RoutedEventArgs e)
         {
             if (_window != null)

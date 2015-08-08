@@ -12,15 +12,14 @@ namespace GamerJail.ViewModels
     {
         private RelayCommand _openConfigurationCommand;
         private IView _currentView;
-        private bool _canGoBack;
+        private bool _isViewOpen;
         private RelayCommand _goBackCommand;
-        private bool _isConfigurationOpen;
         private RelayCommand _openStatisticCommand;
+        private RelayCommand _openHistoryCommand;
 
         public MainViewModel()
         {
             ServiceManager = ServiceManager.Current;
-            CurrentView = new HomeViewModel(ServiceManager);
         }
 
         public ServiceManager ServiceManager { get; set; }
@@ -42,15 +41,15 @@ namespace GamerJail.ViewModels
             }
         }
 
-        public bool CanGoBack
+        public bool IsViewOpen
         {
-            get { return _canGoBack; }
-            set { SetProperty(value, ref _canGoBack); }
+            get { return _isViewOpen; }
+            set { SetProperty(value, ref _isViewOpen); }
         }
 
         private void ViewCloseRequest(object sender, EventArgs eventArgs)
         {
-            CurrentView = new HomeViewModel(ServiceManager);
+            CurrentView = null;
         }
 
         public RelayCommand OpenConfigurationCommand
@@ -64,8 +63,7 @@ namespace GamerJail.ViewModels
                         return;
 
                     CurrentView = new ConfigurationViewModel(ServiceManager);
-                    CanGoBack = true;
-                    IsConfigurationOpen = true;
+                    IsViewOpen = true;
                 }));
             }
         }
@@ -76,7 +74,7 @@ namespace GamerJail.ViewModels
             {
                 return _openStatisticCommand ?? (_openStatisticCommand = new RelayCommand(parameter =>
                 {
-                    CanGoBack = true;
+                    IsViewOpen = true;
                     CurrentView = new StatisticViewModel(ServiceManager);
                 }));
             }
@@ -88,17 +86,22 @@ namespace GamerJail.ViewModels
             {
                 return _goBackCommand ?? (_goBackCommand = new RelayCommand(parameter =>
                 {
-                    CurrentView = new HomeViewModel(ServiceManager);
-                    CanGoBack = false;
-                    IsConfigurationOpen = false;
+                    CurrentView = null;
+                    IsViewOpen = false;
                 }));
             }
         }
 
-        public bool IsConfigurationOpen
+        public RelayCommand OpenHistoryCommand
         {
-            get { return _isConfigurationOpen; }
-            set { SetProperty(value, ref _isConfigurationOpen); }
+            get
+            {
+                return _openHistoryCommand ?? (_openHistoryCommand = new RelayCommand(parameter =>
+                {
+                    CurrentView = new HistoryViewModel(ServiceManager);
+                    IsViewOpen = true;
+                }));
+            }
         }
     }
 }

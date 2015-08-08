@@ -93,6 +93,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\DatabaseManager.cs" />
+    <Compile Include="Data\HistoryEntry.cs" />
     <Compile Include="Data\PlayTime.cs" />
     <Compile Include="Data\Program.cs" />
     <Compile Include="Data\StatisticManager.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Logic\ServiceManager.cs" />
     <Compile Include="ViewManagement\IView.cs" />
     <Compile Include="ViewManagement\ViewManager.cs" />
+    <Compile Include="ViewModels\Pages\HistoryViewModel.cs" />
     <Compile Include="ViewModels\Pages\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Pages\StatisticViewModel.cs" />
@@ -121,6 +123,9 @@
     <Compile Include="ViewModels\Pages\ConfigurationViewModel.cs" />
     <Compile Include="Views\ConfigurationView.xaml.cs">
       <DependentUpon>ConfigurationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HistoryView.xaml.cs">
+      <DependentUpon>HistoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -144,6 +149,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\ConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HistoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

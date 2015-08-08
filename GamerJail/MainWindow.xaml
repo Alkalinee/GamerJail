@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewManagement="clr-namespace:GamerJail.ViewManagement"
         xmlns:viewModels="clr-namespace:GamerJail.ViewModels"
+        xmlns:views="clr-namespace:GamerJail.Views"
         Title="GamerJail"
         Width="750"
         Height="460"
@@ -128,7 +129,7 @@
                             </Setter.Value>
                         </Setter>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding CanGoBack}" Value="false">
+                            <DataTrigger Binding="{Binding IsViewOpen}" Value="false">
                                 <Setter Property="Visibility" Value="Hidden" />
                             </DataTrigger>
                         </Style.Triggers>
@@ -138,6 +139,19 @@
             <StackPanel Margin="10"
                         HorizontalAlignment="Right"
                         Orientation="Horizontal">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsViewOpen}" Value="true">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <Button Margin="0,0,10,0"
+                        Command="{Binding OpenHistoryCommand}"
+                        Content="Verlauf"
+                        Style="{StaticResource MetroButton}" />
                 <Button Margin="0,0,10,0"
                         Command="{Binding OpenStatisticCommand}"
                         Content="Statistiken"
@@ -155,9 +169,22 @@
                 </Button>
             </StackPanel>
         </Grid>
+        <views:HomeView Grid.Row="0" Grid.RowSpan="2" />
         <controls:TransitioningContentControl Grid.Row="1"
+                                              Background="White"
                                               Content="{Binding CurrentView,
                                                                 Converter={StaticResource ViewManager}}"
-                                              Transition="Left" />
+                                              Transition="Left">
+            <controls:TransitioningContentControl.Style>
+                <Style TargetType="controls:TransitioningContentControl">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsViewOpen}" Value="true">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:TransitioningContentControl.Style>
+        </controls:TransitioningContentControl>
     </Grid>
 </Window>
