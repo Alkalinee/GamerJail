@@ -10,7 +10,7 @@ namespace GamerJail.ViewModels
 {
     class MainViewModel : PropertyChangedBase
     {
-        private RelayCommand _openConfigurationCommand;
+        private RelayCommand _openAdministrationCommand;
         private IView _currentView;
         private bool _isViewOpen;
         private RelayCommand _goBackCommand;
@@ -52,17 +52,17 @@ namespace GamerJail.ViewModels
             CurrentView = null;
         }
 
-        public RelayCommand OpenConfigurationCommand
+        public RelayCommand OpenAdministrationCommand
         {
             get
             {
-                return _openConfigurationCommand ?? (_openConfigurationCommand = new RelayCommand(parameter =>
+                return _openAdministrationCommand ?? (_openAdministrationCommand = new RelayCommand(parameter =>
                 {
                     var passwordWindow = new PasswordDialogWindow {Owner = Application.Current.MainWindow};
                     if (passwordWindow.ShowDialog() != true)
                         return;
 
-                    CurrentView = new ConfigurationViewModel(ServiceManager);
+                    CurrentView = new AdministrationViewModel(ServiceManager);
                     IsViewOpen = true;
                 }));
             }

@@ -102,8 +102,9 @@ namespace GamerJail.Logic
 
             foreach (var program in _manager.DatabaseManager.Programs)
             {
-                if (string.Equals(program.Path, path, StringComparison.OrdinalIgnoreCase))
+                if (process.ProcessName == program.Name)
                 {
+                    program.Path = path;
                     if (program.IsGame)
                         GameTimeStart(process, program);
                     return;
@@ -112,12 +113,15 @@ namespace GamerJail.Logic
 
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(5), _cancellationTokenSource.Token);
+                await Task.Delay(TimeSpan.FromSeconds(30), _cancellationTokenSource.Token);
             }
             catch (TaskCanceledException)
             {
                 return;
             }
+
+            if (process.HasExited)
+                return;
 
             var isGame = GameChecker.IsGame(process);
             var newProgram = _manager.DatabaseManager.AddProgram(path, isGame, process.ProcessName);

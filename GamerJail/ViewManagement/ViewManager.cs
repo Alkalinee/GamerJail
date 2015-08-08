@@ -21,7 +21,7 @@ namespace GamerJail.ViewManagement
             if (_viewsViewModels == null)
                 _viewsViewModels = new ReadOnlyDictionary<Type, Type>(new Dictionary<Type, Type>
                 {
-                    {typeof (ConfigurationViewModel), typeof (ConfigurationView)},
+                    {typeof (AdministrationViewModel), typeof (AdministrationView)},
                     {typeof (StatisticViewModel), typeof (StatisticView)},
                     {typeof (HistoryViewModel), typeof (HistoryView)}
                 });

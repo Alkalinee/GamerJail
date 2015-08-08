@@ -156,17 +156,9 @@
                         Command="{Binding OpenStatisticCommand}"
                         Content="Statistiken"
                         Style="{StaticResource MetroButton}" />
-                <Button Command="{Binding OpenConfigurationCommand}" Content="Konfiguration">
-                    <Button.Style>
-                        <Style BasedOn="{StaticResource MetroButton}" TargetType="Button">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsConfigurationOpen}" Value="true">
-                                    <Setter Property="IsEnabled" Value="False" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                <Button Command="{Binding OpenAdministrationCommand}"
+                        Content="Administration"
+                        Style="{StaticResource MetroButton}" />
             </StackPanel>
         </Grid>
         <views:HomeView Grid.Row="0" Grid.RowSpan="2" />

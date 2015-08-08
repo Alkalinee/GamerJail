@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using GamerJail.Logic;
 using GamerJail.Shared;
+using GamerJail.Views;
 using Hardcodet.Wpf.TaskbarNotification;
 
 namespace GamerJail
@@ -22,7 +23,14 @@ namespace GamerJail
         {
             base.OnStartup(e);
 
+            if (e.Args.Contains("/uninstall"))
+            {
+                new UninstallWindow().Show();
+                return;
+            }
+
             Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
             Icon = new TaskbarIcon
             {
                 IconSource =
@@ -45,9 +53,11 @@ namespace GamerJail
             if (e.Args.Contains("/firstStart"))
                 Icon.ShowBalloonTip("GamerJail",
                     "GamerJail wurde gestartet und ist nun aktiv.", BalloonIcon.Info);
+
+            Current.Exit += Current_Exit;
         }
 
-        ~App()
+        private void Current_Exit(object sender, ExitEventArgs e)
         {
             Icon.Dispose();
         }

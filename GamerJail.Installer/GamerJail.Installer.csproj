@@ -38,6 +38,8 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -162,12 +164,6 @@
     <Resource Include="..\GamerJail\bin\Release\GamerJail.exe.config">
       <Link>InstallationFiles\GamerJail.exe.config</Link>
     </Resource>
-    <Resource Include="..\GamerJail\bin\Release\GamerJail.vshost.exe.config">
-      <Link>InstallationFiles\GamerJail.vshost.exe.config</Link>
-    </Resource>
-    <Resource Include="..\GamerJail\bin\Release\GamerJail.vshost.exe.manifest">
-      <Link>InstallationFiles\GamerJail.vshost.exe.manifest</Link>
-    </Resource>
     <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -229,9 +225,6 @@
     </Resource>
     <Resource Include="..\GamerJail\bin\Release\GamerJail.Shared.pdb">
       <Link>InstallationFiles\GamerJail.Shared.pdb</Link>
-    </Resource>
-    <Resource Include="..\GamerJail\bin\Release\GamerJail.vshost.exe">
-      <Link>InstallationFiles\GamerJail.vshost.exe</Link>
     </Resource>
     <Resource Include="..\GamerJail\bin\Release\Hardcodet.Wpf.TaskbarNotification.dll">
       <Link>InstallationFiles\Hardcodet.Wpf.TaskbarNotification.dll</Link>

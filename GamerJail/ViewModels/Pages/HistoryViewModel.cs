@@ -19,7 +19,7 @@ namespace GamerJail.ViewModels.Pages
         {
             _serviceManager = serviceManager;
             Years = serviceManager.DatabaseManager.PlayTimes.Select(x => x.Timestamp.Year).Distinct().ToList();
-            Year = Years.Last();
+            Year = Years.LastOrDefault();
         }
 
         public event EventHandler CloseRequest;
@@ -29,7 +29,7 @@ namespace GamerJail.ViewModels.Pages
             get { return _year; }
             set
             {
-                if (SetProperty(value, ref _year))
+                if (SetProperty(value, ref _year) && value != 0)
                 {
                     HistoryEntries =
                         _serviceManager.DatabaseManager.PlayTimes.Where(x => x.Timestamp.Year == value)

@@ -103,17 +103,20 @@ namespace GamerJail.Logic
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (DateTime.Now < DateTime.Today.Date.AddHours(_serviceManager.Config.TimeSpan.FromTime) ||
-                DateTime.Now > DateTimeHelper.GetToday().AddHours(_serviceManager.Config.TimeSpan.ToTime))
+            if (_serviceManager.Config.TimeSpan.FromTime != 0 || _serviceManager.Config.TimeSpan.ToTime != 24)
             {
-                TimeLeft = TimeSpan.Zero;
-            }
-            else
-            {
-                var time = DateTimeHelper.GetToday().AddMinutes(_serviceManager.Config.TimeSpan.ToTime*30) -
-                           DateTime.Now;
-                if (TimeLeft < time)
-                    TimeLeft = time;
+                if (DateTime.Now < DateTime.Today.Date.AddHours(_serviceManager.Config.TimeSpan.FromTime) ||
+                    DateTime.Now > DateTimeHelper.GetToday().AddHours(_serviceManager.Config.TimeSpan.ToTime))
+                {
+                    TimeLeft = TimeSpan.Zero;
+                }
+                else
+                {
+                    var time = DateTimeHelper.GetToday().AddMinutes(_serviceManager.Config.TimeSpan.ToTime*30) -
+                               DateTime.Now;
+                    if (TimeLeft < time)
+                        TimeLeft = time;
+                }
             }
 
             if (_serviceManager.Service.CurrentProgram == null) //No actions when no game is running

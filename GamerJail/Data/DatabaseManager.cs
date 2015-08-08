@@ -176,6 +176,17 @@ namespace GamerJail.Data
             return program;
         }
 
+        public void RefreshProgramStatus(Program program)
+        {
+            var newValue = program.IsGame ? 1 : 0;
+            using (
+                var command =
+                    new SQLiteCommand(
+                        $"UPDATE `Programs` SET IsGame={newValue} WHERE Guid='{program.Guid.ToString("D")}'",
+                        _connection))
+                command.ExecuteNonQuery();
+        }
+
         private static DateTime GetLastSystemShutdown()
         {
             string sKey = @"System\CurrentControlSet\Control\Windows";

@@ -100,6 +100,7 @@
     <Compile Include="Data\Statistics.cs" />
     <Compile Include="Extensions\EnumerationExtension.cs" />
     <Compile Include="Logic\ActionManager.cs" />
+    <Compile Include="Logic\AutostartManager.cs" />
     <Compile Include="Logic\GameChecker.cs" />
     <Compile Include="Logic\ShutdownAction.cs" />
     <Compile Include="Native\POINT.cs" />
@@ -120,9 +121,9 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Pages\StatisticViewModel.cs" />
     <Compile Include="ViewModels\PasswordDialogViewModel.cs" />
-    <Compile Include="ViewModels\Pages\ConfigurationViewModel.cs" />
-    <Compile Include="Views\ConfigurationView.xaml.cs">
-      <DependentUpon>ConfigurationView.xaml</DependentUpon>
+    <Compile Include="ViewModels\Pages\AdministrationViewModel.cs" />
+    <Compile Include="Views\AdministrationView.xaml.cs">
+      <DependentUpon>AdministrationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HistoryView.xaml.cs">
       <DependentUpon>HistoryView.xaml</DependentUpon>
@@ -136,6 +137,9 @@
     <Compile Include="Views\StatisticView.xaml.cs">
       <DependentUpon>StatisticView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UninstallWindow.xaml.cs">
+      <DependentUpon>UninstallWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -148,7 +152,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ConfigurationView.xaml">
+    <Page Include="Views\AdministrationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StatisticView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UninstallWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

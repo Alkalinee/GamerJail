@@ -5,11 +5,11 @@ using GamerJail.ViewModels.Pages;
 namespace GamerJail.Views
 {
     /// <summary>
-    /// Interaktionslogik für ConfigurationView.xaml
+    /// Interaktionslogik für AdministrationView.xaml
     /// </summary>
-    public partial class ConfigurationView
+    public partial class AdministrationView
     {
-        public ConfigurationView()
+        public AdministrationView()
         {
             InitializeComponent();
             Loaded += ConfigurationView_Loaded;
@@ -17,7 +17,7 @@ namespace GamerJail.Views
 
         private void ConfigurationView_Loaded(object sender, RoutedEventArgs e)
         {
-            ((ConfigurationViewModel)DataContext).ClearPasswords += SettingsView_ClearPasswords;
+            ((AdministrationViewModel) DataContext).ClearPasswords += SettingsView_ClearPasswords;
         }
 
         private void SettingsView_ClearPasswords(object sender, EventArgs e)
@@ -28,12 +28,12 @@ namespace GamerJail.Views
 
         private void PasswordBox_OnPasswordChanged(object sender, RoutedEventArgs e)
         {
-            ((ConfigurationViewModel)DataContext).Password1Changed(PasswordBox1.SecurePassword);
+            ((AdministrationViewModel) DataContext).Password1Changed(PasswordBox1.SecurePassword);
         }
 
         private void PasswordBox2_OnPasswordChanged(object sender, RoutedEventArgs e)
         {
-            ((ConfigurationViewModel)DataContext).Password2Changed(PasswordBox2.SecurePassword);
+            ((AdministrationViewModel) DataContext).Password2Changed(PasswordBox2.SecurePassword);
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Security;
 using System.Web.Script.Serialization;
 using System.Windows;
+using GamerJail.Data;
 using GamerJail.Logic;
 using GamerJail.Shared;
 using GamerJail.Shared.Utilities;
@@ -11,7 +13,7 @@ using GamerJail.Views;
 
 namespace GamerJail.ViewModels.Pages
 {
-    class ConfigurationViewModel : PropertyChangedBase, IView
+    internal class AdministrationViewModel : PropertyChangedBase, IView
     {
         private int _lowerValue;
         private int _upperValue;
@@ -22,25 +24,15 @@ namespace GamerJail.ViewModels.Pages
         private string _passwordErrorMessage;
         private bool _canChangePassword;
         private RelayCommand _changePasswordCommand;
+        private RelayCommand _changeProgramStatusCommand;
+        private RelayCommand _uninstallCommand;
 
-        public ConfigurationViewModel(ServiceManager serviceManager)
+        public AdministrationViewModel(ServiceManager serviceManager)
         {
             ServiceManager = serviceManager;
             GamingTimePerDay = serviceManager.Config.GamingTimePerDay;
-            LowerValue = ConvertTimeSpanBack(serviceManager.Config.TimeSpan.FromTime);
-            UpperValue = ConvertTimeSpanBack(serviceManager.Config.TimeSpan.ToTime);
-        }
-
-        private int ConvertTimeSpanBack(double time)
-        {
-            if(time < 4)
-            {
-                return (int)((time + 24) * 2) - 4 * 2;
-            }
-            else
-            {
-                return (int)(time * 2) - 4 * 2;
-            }
+            LowerValue = (int) serviceManager.Config.TimeSpan.FromTime* 2;
+            UpperValue = (int)serviceManager.Config.TimeSpan.ToTime * 2;
         }
 
         public event EventHandler ClearPasswords;
@@ -56,7 +48,7 @@ namespace GamerJail.ViewModels.Pages
                 if (_lowerValue != value)
                 {
                     _lowerValue = value;
-                    var timeSpan = TimeSpan.FromMinutes(value * 30 + 4 * 60);
+                    var timeSpan = TimeSpan.FromMinutes(value*30 + 4*60);
                     ServiceManager.Config.TimeSpan.FromTime = timeSpan.TotalHours - (timeSpan.TotalHours > 24 ? 24 : 0);
                     CheckIfEverythingIsAwesome();
                 }
@@ -71,7 +63,7 @@ namespace GamerJail.ViewModels.Pages
                 if (_upperValue != value)
                 {
                     _upperValue = value;
-                    var timeSpan = TimeSpan.FromMinutes(value * 30 + 4 * 60);
+                    var timeSpan = TimeSpan.FromMinutes(value*30 + 4*60);
                     ServiceManager.Config.TimeSpan.ToTime = timeSpan.TotalHours - (timeSpan.TotalHours > 24 ? 24 : 0);
                     CheckIfEverythingIsAwesome();
                 }
@@ -130,6 +122,42 @@ namespace GamerJail.ViewModels.Pages
             }
         }
 
+        public RelayCommand ChangeProgramStatusCommand
+        {
+            get
+            {
+                return _changeProgramStatusCommand ?? (_changeProgramStatusCommand = new RelayCommand(parameter =>
+                {
+                    var program = parameter as Program;
+                    if (program == null)
+                        return;
+
+                    ServiceManager.DatabaseManager.RefreshProgramStatus(program);
+                }));
+            }
+        }
+
+        public RelayCommand UninstallCommand
+        {
+            get
+            {
+                return _uninstallCommand ?? (_uninstallCommand = new RelayCommand(parameter =>
+                {
+                    var process = new Process
+                    {
+                        StartInfo =
+                        {
+                            FileName = System.Reflection.Assembly.GetExecutingAssembly().Location,
+                            Verb = "runas",
+                            Arguments = "/uninstall"
+                        }
+                    };
+                    process.Start();
+                    process.WaitForExit();
+                }));
+            }
+        }
+
         public void Password1Changed(SecureString passsword)
         {
             _password1 = passsword;
@@ -144,7 +172,7 @@ namespace GamerJail.ViewModels.Pages
 
         private void CheckIfEverythingIsAwesome()
         {
-            ShowWarning = (UpperValue * 30 - LowerValue * 30) < ServiceManager.Config.GamingTimePerDay.TotalMinutes;
+            ShowWarning = (UpperValue*30 - LowerValue*30) < ServiceManager.Config.GamingTimePerDay.TotalMinutes;
         }
 
         private void RefreshPasswords()

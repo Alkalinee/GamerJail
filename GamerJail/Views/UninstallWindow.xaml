@@ -1,0 +1,29 @@
+﻿<Window x:Class="GamerJail.Views.UninstallWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="Deinstallieren"
+        Width="500"
+        Height="200"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Click="ButtonBase_OnClick" Content="Deinstallieren" />
+            <CheckBox x:Name="RemoveUserSettingsRadioButton"
+                      Margin="0,3,0,0"
+                      Content="Einstellungen auch entfernen" />
+        </StackPanel>
+        <StackPanel Margin="10,0,10,20"
+                    VerticalAlignment="Bottom"
+                    Orientation="Vertical">
+            <controls:MetroProgressBar x:Name="ProgressBar" IsIndeterminate="False" />
+            <TextBlock x:Name="StatusTextBlock"
+                       Margin="0,5,0,0"
+                       Text="" />
+        </StackPanel>
+    </Grid>
+</Window>
