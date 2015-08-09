@@ -10,10 +10,17 @@ namespace GamerJail.Logic
 {
     class GameChecker
     {
-        private static readonly string[] SomeGames = {"RocketLeague", "League of Legends", "dota2", "Minecraft"};
+        private static readonly string[] SomeGames =
+        {
+            "RocketLeague", "League of Legends", "dota2", "Minecraft",
+            "SamHD_TSE", "csgo", "war3"
+        };
 
         public static bool IsGame(Process process)
         {
+            process.Refresh();
+            Debug.Print("Analyisere Spiel: " + process.ProcessName);
+
             if (SomeGames.Contains(process.ProcessName))
                 return true;
 
@@ -24,11 +31,10 @@ namespace GamerJail.Logic
             if (cname == "LaunchUnrealUWindowsClient")
                 return true;
 
-            var flag1 = process.WorkingSet64 > 524288000; //Check RAM
+            var flag1 = process.PrivateMemorySize64 > 471859200; //Check if RAM > 450 MiB
             var flag2 = WindowIsFullscreen(process.MainWindowHandle);
             if (!flag1)
                 Debug.Print("No memory");
-
             if (!flag2)
                 Debug.Print("No fullscreen");
 

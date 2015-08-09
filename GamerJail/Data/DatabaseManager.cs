@@ -8,7 +8,7 @@ using Microsoft.Win32;
 
 namespace GamerJail.Data
 {
-    public class DatabaseManager
+    public class DatabaseManager : IDisposable
     {
         public static string Password;
 
@@ -19,6 +19,12 @@ namespace GamerJail.Data
         {
             _databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "GamerJail", "database.sqlite");
+        }
+
+        public void Dispose()
+        {
+            _connection?.Close();
+            _connection?.Dispose();
         }
 
         public ObservableCollection<Program> Programs { get; set; }
@@ -196,12 +202,6 @@ namespace GamerJail.Data
             byte[] val = (byte[]) key.GetValue(sValueName);
             long valueAsLong = BitConverter.ToInt64(val, 0);
             return DateTime.FromFileTime(valueAsLong);
-        }
-
-        ~DatabaseManager()
-        {
-            _connection?.Close();
-            _connection?.Dispose();
         }
     }
 }

@@ -60,6 +60,7 @@ namespace GamerJail
         private void Current_Exit(object sender, ExitEventArgs e)
         {
             Icon.Dispose();
+            ServiceManager.Current.DatabaseManager.Dispose();
         }
 
         private void Tbi_TrayLeftMouseDown(object sender, RoutedEventArgs e)

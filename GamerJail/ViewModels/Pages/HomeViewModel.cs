@@ -1,4 +1,7 @@
 ﻿using System;
+// ReSharper disable RedundantUsingDirective
+using System.ComponentModel;
+// ReSharper restore RedundantUsingDirective
 using System.Linq;
 using System.Windows;
 using System.Windows.Threading;

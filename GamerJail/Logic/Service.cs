@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using GamerJail.Data;
@@ -113,15 +114,12 @@ namespace GamerJail.Logic
 
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(30), _cancellationTokenSource.Token);
+                await Task.Delay(TimeSpan.FromSeconds(60), _cancellationTokenSource.Token);
             }
             catch (TaskCanceledException)
             {
                 return;
             }
-
-            if (process.HasExited)
-                return;
 
             var isGame = GameChecker.IsGame(process);
             var newProgram = _manager.DatabaseManager.AddProgram(path, isGame, process.ProcessName);
