@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,7 +46,7 @@ namespace GamerJail
             if (ServiceManager.Current.Config.ProtectionLevel == ProtectionLevel.Nothing)
             {
                 Icon.ContextMenu = new ContextMenu();
-                var item = new MenuItem {Header = "Beenden"};
+                var item = new MenuItem { Header = "Beenden" };
                 item.Click += (sender, args) => Current.Shutdown();
                 Icon.ContextMenu.Items.Add(item);
             }
@@ -55,6 +56,8 @@ namespace GamerJail
                     "GamerJail wurde gestartet und ist nun aktiv.", BalloonIcon.Info);
 
             Current.Exit += Current_Exit;
+            Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         }
 
         private void Current_Exit(object sender, ExitEventArgs e)
@@ -76,10 +79,22 @@ namespace GamerJail
                 _window.Show();
             }
         }
-    }
 
-    /*
-    Know your limits - KnowYourLimits
-    Gamer jail - GamerJail
-    */
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            OnExceptionOccurred((Exception)e.ExceptionObject);
+        }
+
+        private void Current_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            OnExceptionOccurred(e.Exception);
+        }
+
+        private void OnExceptionOccurred(Exception exception)
+        {
+            File.AppendAllText(
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GamerJail",
+                    "log.txt"), $"{DateTime.Now}\r\n------------------------------------------\r\n{exception}");
+        }
+    }
 }

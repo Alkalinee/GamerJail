@@ -79,7 +79,7 @@ namespace GamerJail.Installer.Model
             for (int i = 0; i < files.Length; i++)
             {
                 var file = files[i];
-                var resourceName = $"pack://application:,,,/GamerJail.Installer;component/InstallationFiles/{file}";
+                var resourceName = $"pack://application:,,,/GamerJail.Installer;component/Files/{file}";
                 var fileInfo = new FileInfo(Path.Combine(InstallationPath, file.Replace("/", @"\")));
                 if (!fileInfo.Directory.Exists)
                     fileInfo.Directory.Create();
